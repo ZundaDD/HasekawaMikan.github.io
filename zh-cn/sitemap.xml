@@ -43,6 +43,8 @@
     <loc>https://zundadd.github.io/HasekawaMikan.github.io/page/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://zundadd.github.io/HasekawaMikan.github.io/about/</loc>
+  </url><url>
     <loc>https://zundadd.github.io/HasekawaMikan.github.io/links/</loc>
   </url><url>
     <loc>https://zundadd.github.io/HasekawaMikan.github.io/search/</loc>
@@ -58,7 +60,5 @@
                 hreflang="zh-cn"
                 href="https://zundadd.github.io/HasekawaMikan.github.io/tags/"
                 />
-  </url><url>
-    <loc>https://zundadd.github.io/HasekawaMikan.github.io/%E5%85%B3%E4%BA%8E/</loc>
   </url>
 </urlset>
