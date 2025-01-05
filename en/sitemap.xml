@@ -2,40 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://github.com/ZundaDD/HasekawaMikan.github.io/en/categories/</loc>
+    <loc>https://zundadd.github.io/HasekawaMikan.github.io/en/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://github.com/ZundaDD/HasekawaMikan.github.io/categories/"
+                href="https://zundadd.github.io/HasekawaMikan.github.io/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://github.com/ZundaDD/HasekawaMikan.github.io/en/categories/"
+                href="https://zundadd.github.io/HasekawaMikan.github.io/en/categories/"
                 />
   </url><url>
-    <loc>https://github.com/ZundaDD/HasekawaMikan.github.io/en/</loc>
+    <loc>https://zundadd.github.io/HasekawaMikan.github.io/en/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://github.com/ZundaDD/HasekawaMikan.github.io/"
+                href="https://zundadd.github.io/HasekawaMikan.github.io/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://github.com/ZundaDD/HasekawaMikan.github.io/en/"
+                href="https://zundadd.github.io/HasekawaMikan.github.io/en/"
                 />
   </url><url>
-    <loc>https://github.com/ZundaDD/HasekawaMikan.github.io/en/tags/</loc>
+    <loc>https://zundadd.github.io/HasekawaMikan.github.io/en/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://github.com/ZundaDD/HasekawaMikan.github.io/tags/"
+                href="https://zundadd.github.io/HasekawaMikan.github.io/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://github.com/ZundaDD/HasekawaMikan.github.io/en/tags/"
+                href="https://zundadd.github.io/HasekawaMikan.github.io/en/tags/"
                 />
   </url>
 </urlset>
