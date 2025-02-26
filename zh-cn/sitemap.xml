@@ -31,10 +31,10 @@
     <loc>https://zundadd.github.io/HasekawaMikan.github.io/post/</loc>
     <lastmod>2024-01-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zundadd.github.io/HasekawaMikan.github.io/p/%E5%A5%B6%E9%BE%99/</loc>
+    <loc>https://zundadd.github.io/HasekawaMikan.github.io/p/%E6%B8%B8%E6%88%8F%E7%A2%8E%E7%A2%8E%E5%BF%B5/</loc>
     <lastmod>2024-01-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zundadd.github.io/HasekawaMikan.github.io/categories/%E9%9F%B3%E6%B8%B8/</loc>
+    <loc>https://zundadd.github.io/HasekawaMikan.github.io/categories/%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2024-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://zundadd.github.io/HasekawaMikan.github.io/archives/</loc>
@@ -58,5 +58,7 @@
                 hreflang="zh-cn"
                 href="https://zundadd.github.io/HasekawaMikan.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://zundadd.github.io/HasekawaMikan.github.io/categories/%E9%9F%B3%E6%B8%B8/</loc>
   </url>
 </urlset>
