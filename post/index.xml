@@ -7,7 +7,27 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Hasekawa Mikan</copyright>
-        <lastBuildDate>Fri, 05 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 26 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MegatonHardcore</title>
+        <link>https://zundadd.github.io/HasekawaMikan.github.io/p/megatonhardcore/</link>
+        <pubDate>Wed, 26 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://zundadd.github.io/HasekawaMikan.github.io/p/megatonhardcore/</guid>
+        <description>&lt;img src="https://zundadd.github.io/HasekawaMikan.github.io/01.jpg" alt="Featured image of post MegatonHardcore" /&gt;&lt;h1 id=&#34;介绍&#34;&gt;介绍
+&lt;/h1&gt;&lt;p&gt;这是无聊的时候开发的一个PC端音游，取名Megaton Hardcore，由来是希望制作一款比较硬核的音游，能够发挥PC端的优势
+或者说让键鼠玩起来最舒服。同时，也可以把Megaton Hardcore当作一个实验室，它的玩法不是固定的。
+游戏将会提供很多不同的操作模式，从经典的4K下落式到键鼠并用的模式，藉此探索音游的无限可能。&lt;/p&gt;
+&lt;h1 id=&#34;开发现状&#34;&gt;开发现状
+&lt;/h1&gt;&lt;p&gt;到目前为止，游戏流程已经可以正常进行，包括选歌-&amp;gt;打歌-&amp;gt;结算的循环。在之后的更新中，将会提供流程之外的操作以及
+优化现有的图像和UI。可游玩版本发布日期暂时无法确定，而且谱面的制作还需要消耗额外的时间，所以这算是一个较长期的
+项目。&lt;/p&gt;
+&lt;h1 id=&#34;选歌&#34;&gt;选歌
+&lt;/h1&gt;&lt;p&gt;当然作为一个音游，从何处获取音乐是最首要的问题，我的计划是利用没有版权的歌曲制作谱面，但是并不会发布，仅供自用。
+至于说到了能找到合适的无版权歌曲的时候，会考虑一并上传谱面，所以一开始打包出来的内容中不会包括谱面。
+在开发到一定程度的时候，我会考虑制作一个可视化制谱器。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>游戏碎碎念</title>
         <link>https://zundadd.github.io/HasekawaMikan.github.io/p/%E6%B8%B8%E6%88%8F%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
         <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
