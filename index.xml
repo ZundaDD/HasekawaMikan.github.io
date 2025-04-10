@@ -7,7 +7,323 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Hasekawa Mikan</copyright>
-        <lastBuildDate>Tue, 25 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 10 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>UI参考</title>
+        <link>https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/</link>
+        <pubDate>Thu, 10 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/</guid>
+        <description>&lt;img src="https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/01.png" alt="Featured image of post UI参考" /&gt;&lt;h1 id=&#34;ui样例&#34;&gt;UI样例
+&lt;/h1&gt;&lt;p&gt;这里给出了若干个音游的UI样式，用作参考和观察细节，图中真实信息已被抹去&lt;/br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;chunithm&#34;&gt;Chunithm
+&lt;/h2&gt;&lt;p&gt;游玩界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/02.png&#34;
+	width=&#34;1514&#34;
+	height=&#34;856&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/02_hu_69c8190384c1869c.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/02_hu_bbe70127afc60e31.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Playing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;424px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;选歌界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/03.png&#34;
+	width=&#34;1195&#34;
+	height=&#34;676&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/03_hu_bce189fad9cd3632.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/03_hu_df226d633fcbae96.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Choosing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;424px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;结算界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/04.png&#34;
+	width=&#34;1485&#34;
+	height=&#34;686&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/04_hu_563ffc14ca5d946e.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/04_hu_ea1857435777d040.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;EndPlay&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;216&#34;
+		data-flex-basis=&#34;519px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;maimai&#34;&gt;Maimai
+&lt;/h2&gt;&lt;p&gt;加载界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/05.png&#34;
+	width=&#34;971&#34;
+	height=&#34;880&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/05_hu_7663c6d085916f68.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/05_hu_f68f0d5cc7808ae0.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Loading&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;110&#34;
+		data-flex-basis=&#34;264px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;游玩界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/06.png&#34;
+	width=&#34;808&#34;
+	height=&#34;881&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/06_hu_6d6d0f91a796afab.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/06_hu_6c8ab0d6c2d63971.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Playing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;91&#34;
+		data-flex-basis=&#34;220px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;arcaea&#34;&gt;Arcaea
+&lt;/h2&gt;&lt;p&gt;结算界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/07.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/07_hu_59b757f61b34fb67.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/07_hu_e8304e80897f8c6e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;EndPlay&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;选歌界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/08.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/08_hu_c3856122fdeff0e.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/08_hu_52559b9f659ed840.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Choosing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;游玩界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/09.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/09_hu_84d15b16a5115f17.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/09_hu_24a430cb3c948fde.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Playing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;djmax-v-respect&#34;&gt;DJMAX V RESPECT
+&lt;/h2&gt;&lt;p&gt;选歌界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/10.png&#34;
+	width=&#34;2559&#34;
+	height=&#34;1599&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/10_hu_d5912976fce13d8e.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/10_hu_c0dd1bc4e3f149e3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Choosing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;游玩界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/11.png&#34;
+	width=&#34;2559&#34;
+	height=&#34;1599&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/11_hu_822462c0756814e0.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/11_hu_5240b22b3b9f22d2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Playing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;模式界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/12.png&#34;
+	width=&#34;2559&#34;
+	height=&#34;1599&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/12_hu_7e6d92802ea8ea6c.png 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/12_hu_4f838b8594a381c6.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Mode&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;范式起源&#34;&gt;范式：起源
+&lt;/h2&gt;&lt;p&gt;主界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/13.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/13_hu_3bef7626135ba0ff.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/13_hu_2709cc50c988b80c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Main&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;曲包界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/14.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/14_hu_8e55960cd5245679.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/14_hu_cb0282d81cb8c30d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Pack&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;选歌界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/15.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/15_hu_84bb399a9bee4e1c.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/15_hu_4ff3b5a21ec6641a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Choosing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;游玩界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/16.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/16_hu_39294d956b086f61.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/16_hu_a12071c0870469d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Playing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;结算界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/17.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/17_hu_e0a29aa66c188edb.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/17_hu_971e9598c61d50cb.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;EndPlay&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;ellia&#34;&gt;ELLIA
+&lt;/h2&gt;&lt;p&gt;主界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/18.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/18_hu_dcaae9de579ae973.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/18_hu_9e6dc5fb78420995.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Main&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;选歌界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/19.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/19_hu_da46bdaa5aa4bc7a.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/19_hu_300a9bdec9dea549.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Choosing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;准备界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/20.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/20_hu_f226604bd06b9f1b.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/20_hu_e9ac2a6e6ceedfc8.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Preparing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;游玩界面
+&lt;img src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/21.jpg&#34;
+	width=&#34;2880&#34;
+	height=&#34;1800&#34;
+	srcset=&#34;https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/21_hu_34a5696269393e3a.jpg 480w, https://zundadd.github.io/HasekawaMikan.github.io/p/ui%E5%8F%82%E8%80%83/21_hu_3f2b10086865ea6d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Playing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>精选歌单</title>
         <link>https://zundadd.github.io/HasekawaMikan.github.io/p/%E7%B2%BE%E9%80%89%E6%AD%8C%E5%8D%95/</link>
         <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
