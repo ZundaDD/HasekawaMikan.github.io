@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>比赛总结文档 | 长谷川蜜柑之窝</title>
+<meta name="keywords" content="Godot, Editor">
+<meta name="description" content="Godot基础编辑器拓展">
+<meta name="author" content="Hasekawa Mikan">
+<link rel="canonical" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/">
+<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://zundadd.github.io/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/">
+  <meta property="og:site_name" content="长谷川蜜柑之窝">
+  <meta property="og:title" content="比赛总结文档">
+  <meta property="og:description" content="Godot基础编辑器拓展">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-21T00:00:00+00:00">
+    <meta property="article:tag" content="Godot">
+    <meta property="article:tag" content="Editor">
+    <meta property="og:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover005.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover005.jpg">
+<meta name="twitter:title" content="比赛总结文档">
+<meta name="twitter:description" content="Godot基础编辑器拓展">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章列表",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "比赛总结文档",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "比赛总结文档",
+  "name": "比赛总结文档",
+  "description": "Godot基础编辑器拓展",
+  "keywords": [
+    "Godot", "Editor"
+  ],
+  "articleBody": "Godot自定义菜单构建 在Godot中，编辑器扩展和在Unity中相比底层的支持更少，从引擎的量级对比上就可以看出。默认的可添加UI控件的位置并不包含左上角和场景、项目等并列的位置，这就导致使用起来不方便的问题。\n另一个问题是，当使用外部编辑器之后，对于EditorScript的运行便无法通过常规的Script-\u003e文件-\u003e执行调用，这样导致如果要频繁地调用简单的编辑器专用脚本，切换时非常麻烦。因此需要采用EditorPlugin的方式来创建，但这样就回到了第一个问题。\n考虑到Godot使用的是构建游戏的所有对象来构建自己的引擎，二者是同源的，Godot的UI也是在启动的时候构建成了一个树状结构，那么我们可以筛查这个UI结构，找到要插入控件的父对象，然后把我们要添加的自定义菜单PopupMenu对象作为孩子插入即可。\n定位语法树 既然语法树是一个树状结构，我们可以通过递归调用的方式获取并输出每一个节点。获取根节点的接口是EditorInterface.Singleton.GetBaseControl()，通过依次递归调用，得到了从根节点到目标位置的语法树（Godot版本4.4.1 NET.，不保证稳定）：\n@Panel@14 (Panel) @VBoxContainer@15 (VBoxContainer) @EditorTitleBar@16 (HBoxContainer) @MenuBar@103 (MenuBar) 场景 (PopupMenu) @PopupMenu@4924 (PopupMenu) @PopupMenu@4930 (PopupMenu) 项目 (PopupMenu) @PopupMenu@4941 (PopupMenu) CSharpTools (PopupMenu) @PopupMenu@14113 (PopupMenu) 调试 (PopupMenu) 编辑器 (PopupMenu) @PopupMenu@4954 (PopupMenu) @PopupMenu@4960 (PopupMenu) 帮助 (PopupMenu) 根据Godot的API：\n使用@EditorTitleBar@*这样的方式可以找到最终的位置，此时调用AddChild方法添加一个PopedMenu对象即可。\n添加可执行项 现在离成功执行脚本只差一步，只有向PopupMenu中添加元素才能有效果。这一点很简单，调用AddItem接口，传递选项显示内容和唯一ID即可做到。\n关于处理菜单选择，PopupMenu通过IdPressed信号来接收操作，该信号传递一个类型为long的id，表示对应的选项被按下，这个时候需要自己处理该怎么操作，比如维护一个回调Dictionary。信号处理函数如下：\nprivate Dictionary\u003clong, Action\u003e _menuCallbacks = new(); private void OnMenuItemPressed(long id) { if (_menuCallbacks.TryGetValue(id, out Action action)) action?.Invoke(); } 热重载 使用C#比较麻烦的一点是，任何改动如果要生效都需要重新Build，这就涉及到一个热重载的问题。我做了一个简易的实验，在构造函数和 _ExitTree中提供字段的输出，在 _EnterTree中进行字段的设置，得到了以下的结果：\n其中True和False输出的是是否为空。\n根据实验可以得到以下结论：\n当EditorPlugin在启用的情况下Build，那么这个对象将会被销毁并重新构建，同时会复制之前所有的字段值，如果是引用对象也会复制原来的引用。 Build的过程中不会触发 _EnterTree函数和 _ExitTree函数，但是会调用构造函数。 Build的过程中不应该预设UI字段仍然有效，所以在_ExitTree函数中应该重新FindChild。 妥协 因此，鉴于引用是直接复制的，那么要求就是向管理目录的对象中添加的回调一定是static的，即不包含实际调用的信息，不包含对象的成员。以下面的代码为例，ScanDeployAsset是一个static函数，具体内容省略。\npublic partial class DeployScanner : EditorPlugin { private static readonly string itemName = \"扫描可部署资产\"; public override void _EnterTree() { GetTree().ProcessFrame += Register; } public override void _ExitTree() { ProjectTopMenu.Instance?.RemoveItem(itemName); } public void Register() { GetTree().ProcessFrame -= Register; ProjectTopMenu.Instance?.AddItem(itemName, ScanDeployAsset); } } ",
+  "wordCount" : "1325",
+  "inLanguage": "zh-cn",
+  "image":"https://zundadd.github.io/HasekawaMikan.github.io/covers/cover005.jpg","datePublished": "2025-08-21T00:00:00Z",
+  "dateModified": "2025-08-21T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hasekawa Mikan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zundadd.github.io/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "长谷川蜜柑之窝",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zundadd.github.io/HasekawaMikan.github.io/" accesskey="h" title="长谷川蜜柑之窝 (Alt + H)">长谷川蜜柑之窝</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zundadd.github.io/HasekawaMikan.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/">文章列表</a></div>
+    <h1 class="post-title entry-hint-parent">
+      比赛总结文档
+    </h1>
+    <div class="post-meta"><span title='2025-08-21 00:00:00 +0000 UTC'>August 21, 2025</span>&nbsp;·&nbsp;Hasekawa Mikan
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover005.jpg" alt="">
+        
+</figure>
+  <div class="post-content"><h1 id="godot自定义菜单构建">Godot自定义菜单构建<a hidden class="anchor" aria-hidden="true" href="#godot自定义菜单构建">#</a></h1>
+<p>在Godot中，编辑器扩展和在Unity中相比底层的支持更少，从引擎的量级对比上就可以看出。默认的可添加UI控件的位置并不包含左上角和场景、项目等并列的位置，这就导致使用起来不方便的问题。</p>
+<p>另一个问题是，当使用外部编辑器之后，对于EditorScript的运行便无法通过常规的Script-&gt;文件-&gt;执行调用，这样导致如果要频繁地调用简单的编辑器专用脚本，切换时非常麻烦。因此需要采用EditorPlugin的方式来创建，但这样就回到了第一个问题。</p>
+<p>考虑到Godot使用的是构建游戏的所有对象来构建自己的引擎，二者是同源的，Godot的UI也是在启动的时候构建成了一个树状结构，那么我们可以筛查这个UI结构，找到要插入控件的父对象，然后把我们要添加的自定义菜单PopupMenu对象作为孩子插入即可。</p>
+<h2 id="定位语法树">定位语法树<a hidden class="anchor" aria-hidden="true" href="#定位语法树">#</a></h2>
+<p>既然语法树是一个树状结构，我们可以通过递归调用的方式获取并输出每一个节点。获取根节点的接口是EditorInterface.Singleton.GetBaseControl()，通过依次递归调用，得到了从根节点到目标位置的语法树（Godot版本4.4.1 NET.，不保证稳定）：</p>
+<ul>
+<li>@Panel@14 (Panel)
+<ul>
+<li>@VBoxContainer@15 (VBoxContainer)
+<ul>
+<li>@EditorTitleBar@16 (HBoxContainer)
+<ul>
+<li>@MenuBar@103 (MenuBar)
+<ul>
+<li>场景 (PopupMenu)
+<ul>
+<li>@PopupMenu@4924 (PopupMenu)</li>
+<li>@PopupMenu@4930 (PopupMenu)</li>
+</ul>
+</li>
+<li>项目 (PopupMenu)
+<ul>
+<li>@PopupMenu@4941 (PopupMenu)
+<ul>
+<li>CSharpTools (PopupMenu)</li>
+</ul>
+</li>
+<li>@PopupMenu@14113 (PopupMenu)</li>
+</ul>
+</li>
+<li>调试 (PopupMenu)</li>
+<li>编辑器 (PopupMenu)
+<ul>
+<li>@PopupMenu@4954 (PopupMenu)</li>
+<li>@PopupMenu@4960 (PopupMenu)</li>
+</ul>
+</li>
+<li>帮助 (PopupMenu)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>根据Godot的API：</p>
+<p><img loading="lazy" src="/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/01.png"></p>
+<p>使用@EditorTitleBar@*这样的方式可以找到最终的位置，此时调用AddChild方法添加一个PopedMenu对象即可。</p>
+<h2 id="添加可执行项">添加可执行项<a hidden class="anchor" aria-hidden="true" href="#添加可执行项">#</a></h2>
+<p>现在离成功执行脚本只差一步，只有向PopupMenu中添加元素才能有效果。这一点很简单，调用AddItem接口，传递选项显示内容和唯一ID即可做到。</p>
+<p>关于处理菜单选择，PopupMenu通过IdPressed信号来接收操作，该信号传递一个类型为long的id，表示对应的选项被按下，这个时候需要自己处理该怎么操作，比如维护一个回调Dictionary。信号处理函数如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">private</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">long</span><span class="p">,</span> <span class="n">Action</span><span class="p">&gt;</span> <span class="n">_menuCallbacks</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="k">void</span> <span class="n">OnMenuItemPressed</span><span class="p">(</span><span class="kt">long</span> <span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">_menuCallbacks</span><span class="p">.</span><span class="n">TryGetValue</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">out</span> <span class="n">Action</span> <span class="n">action</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">action</span><span class="p">?.</span><span class="n">Invoke</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="热重载">热重载<a hidden class="anchor" aria-hidden="true" href="#热重载">#</a></h2>
+<p>使用C#比较麻烦的一点是，任何改动如果要生效都需要重新Build，这就涉及到一个热重载的问题。我做了一个简易的实验，在构造函数和 _ExitTree中提供字段的输出，在 _EnterTree中进行字段的设置，得到了以下的结果：</p>
+<p><img loading="lazy" src="/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/02.png"></p>
+<p>其中True和False输出的是是否为空。</p>
+<p>根据实验可以得到以下结论：</p>
+<ul>
+<li>当EditorPlugin在启用的情况下Build，那么这个对象将会被销毁并重新构建，同时会复制之前所有的字段值，如果是引用对象也会复制原来的引用。</li>
+<li>Build的过程中不会触发 _EnterTree函数和 _ExitTree函数，但是会调用构造函数。</li>
+<li>Build的过程中不应该预设UI字段仍然有效，所以在_ExitTree函数中应该重新FindChild。</li>
+</ul>
+<h2 id="妥协">妥协<a hidden class="anchor" aria-hidden="true" href="#妥协">#</a></h2>
+<p>因此，鉴于引用是直接复制的，那么要求就是向管理目录的对象中添加的回调一定是static的，即不包含实际调用的信息，不包含对象的成员。以下面的代码为例，ScanDeployAsset是一个static函数，具体内容省略。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">partial</span> <span class="k">class</span> <span class="nc">DeployScanner</span> <span class="p">:</span> <span class="n">EditorPlugin</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="k">readonly</span> <span class="kt">string</span> <span class="n">itemName</span> <span class="p">=</span> <span class="s">&#34;扫描可部署资产&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">_EnterTree</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">GetTree</span><span class="p">().</span><span class="n">ProcessFrame</span> <span class="p">+=</span> <span class="n">Register</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">_ExitTree</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ProjectTopMenu</span><span class="p">.</span><span class="n">Instance</span><span class="p">?.</span><span class="n">RemoveItem</span><span class="p">(</span><span class="n">itemName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="k">void</span> <span class="n">Register</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">GetTree</span><span class="p">().</span><span class="n">ProcessFrame</span> <span class="p">-=</span> <span class="n">Register</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ProjectTopMenu</span><span class="p">.</span><span class="n">Instance</span><span class="p">?.</span><span class="n">AddItem</span><span class="p">(</span><span class="n">itemName</span><span class="p">,</span> <span class="n">ScanDeployAsset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/godot/">Godot</a></li>
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/editor/">Editor</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/rmdbdoc/">
+    <span class="title"> »</span>
+    <br>
+    <span>比赛总结文档</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>Hasekawa Mikan</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
