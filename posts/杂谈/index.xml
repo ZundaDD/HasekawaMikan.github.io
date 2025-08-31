@@ -4,11 +4,19 @@
     <title>杂谈 on 长谷川蜜柑之窝</title>
     <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/</link>
     <description>Recent content in 杂谈 on 长谷川蜜柑之窝</description>
-    <generator>Hugo -- 0.148.2</generator>
+    <generator>Hugo -- 0.149.0</generator>
     <language>zh-cn</language>
     <copyright>Hasekawa Mikan</copyright>
-    <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HUST硬件综合训练</title>
+      <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/</link>
+      <pubDate>Sun, 31 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/</guid>
+      <description>&lt;h1 id=&#34;任务概览&#34;&gt;任务概览&lt;/h1&gt;
+&lt;p&gt;简单来说，就是先构建一个单周期RISC-V CPU，然后基于此加入中断和流水线功能，最终将二者合并在一起，所以作为根基的单周期CPU的设计一定要恰当，不然之后改进的时候就会很麻烦。每个人都有自己的四条专属的指令，建议在设计单周期CPU时就做完，以免之后每一个任务都额外去补充实现。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>成分</title>
       <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/gametalking/</link>

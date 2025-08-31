@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>HUST硬件综合训练 | 长谷川蜜柑之窝</title>
+<meta name="keywords" content="杂谈, 硬件">
+<meta name="description" content="任务概览
+简单来说，就是先构建一个单周期RISC-V CPU，然后基于此加入中断和流水线功能，最终将二者合并在一起，所以作为根基的单周期CPU的设计一定要恰当，不然之后改进的时候就会很麻烦。每个人都有自己的四条专属的指令，建议在设计单周期CPU时就做完，以免之后每一个任务都额外去补充实现。">
+<meta name="author" content="Hasekawa Mikan">
+<link rel="canonical" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/">
+<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/">
+  <meta property="og:site_name" content="长谷川蜜柑之窝">
+  <meta property="og:title" content="HUST硬件综合训练">
+  <meta property="og:description" content="任务概览 简单来说，就是先构建一个单周期RISC-V CPU，然后基于此加入中断和流水线功能，最终将二者合并在一起，所以作为根基的单周期CPU的设计一定要恰当，不然之后改进的时候就会很麻烦。每个人都有自己的四条专属的指令，建议在设计单周期CPU时就做完，以免之后每一个任务都额外去补充实现。">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-31T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-31T00:00:00+00:00">
+    <meta property="article:tag" content="杂谈">
+    <meta property="article:tag" content="硬件">
+    <meta property="og:image" content="https://zundadd.github.io/HasekawaMikan.github.io/cover006.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zundadd.github.io/HasekawaMikan.github.io/cover006.jpg">
+<meta name="twitter:title" content="HUST硬件综合训练">
+<meta name="twitter:description" content="任务概览
+简单来说，就是先构建一个单周期RISC-V CPU，然后基于此加入中断和流水线功能，最终将二者合并在一起，所以作为根基的单周期CPU的设计一定要恰当，不然之后改进的时候就会很麻烦。每个人都有自己的四条专属的指令，建议在设计单周期CPU时就做完，以免之后每一个任务都额外去补充实现。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章列表",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "HUST硬件综合训练",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HUST硬件综合训练",
+  "name": "HUST硬件综合训练",
+  "description": "任务概览 简单来说，就是先构建一个单周期RISC-V CPU，然后基于此加入中断和流水线功能，最终将二者合并在一起，所以作为根基的单周期CPU的设计一定要恰当，不然之后改进的时候就会很麻烦。每个人都有自己的四条专属的指令，建议在设计单周期CPU时就做完，以免之后每一个任务都额外去补充实现。\n",
+  "keywords": [
+    "杂谈", "硬件"
+  ],
+  "articleBody": "任务概览 简单来说，就是先构建一个单周期RISC-V CPU，然后基于此加入中断和流水线功能，最终将二者合并在一起，所以作为根基的单周期CPU的设计一定要恰当，不然之后改进的时候就会很麻烦。每个人都有自己的四条专属的指令，建议在设计单周期CPU时就做完，以免之后每一个任务都额外去补充实现。\n以上是实现流程，红色为必做，蓝色为选作，完成图中所有内容后，理论上能拿到实践部分的满分。\n单周期RISC-V 先说流程，首先是填表（表的生成那一页的红色字体是自带的，不是错的），然后构建两个子模块，接着就是IR解析，控制信号设置，PC计算，写回数据判断，ECALL处理和周期计数。\n再说注意事项：\n每一条指令都是有写操作的，会对CPU状态产生影响，控制信号的作用主要是控制写操作。而读操作不会影响CPU状态，为了保证单周期需要同时进行所有可能的读操作，并根据控制信号将选出要写入的数据。因此，只要写信号设置正确，任何冗余的操作和读信号都可以放心大胆的写上去。 先整体再具体，先实现根据指令的类型使用Splitter提取出对应的字段比如说rd，imm12等，再按照该类型的通用执行流程设计数据流向。实现完整体之后，再考虑带有非共性的指令的实现，比如说sw，jw。中断相关的指令可以先不具体实现，但一定要先预留信号引脚位。 最上边自带的显示的数据一定要有效，否则不能通过头歌平台的测试，在提交之前最好把用于测评的代码先加载到指令存储器中。 halt是ecall使用的暂停标志，Go是在halt状态下解除暂停的标志，针对ecall指令单独设置多个MUX是必要的。 跳转指令（BNE，JAL等）的立即数是符号扩展左移1位而不是+4相当的2位，这一点比较特殊。 理想流水线 非常无聊的任务，但是是后面的流水线的基石，也需要花比较长的时间去制作四个接口。\n五个阶段需要执行的任务分别是：\nIF：按照规则找出目标PC值，并从指令存储器中取出对应的指令 ID：根据IR生成所有的控制信号和立即数，访问寄存器堆（包含写回，但是写回内容和信号由WB阶段传递回） EX：根据传入的R1和R2或立即数值调用ALU进行计算，以及其他各种计算工作比如跳转语句的PC计算，Ecall显示和暂停计算，跳转是否执行的计算，总之是各种计算中间数值的计算。 MEM：根据计算的地址访问存储，是性能的瓶颈之处，基本上只有lw，sw这样的指令才会真正用上。 WB：计算出要写回寄存器组的数据和是否写回的信号，相比MEM的写操作更为复杂，因为MEM阶段的写指令内容很简单。 理想流水线的核心逻辑是，利用多个寄存器将指令的执行分为五个阶段，从而使得每个周期都能处同时处理不同的指令的一个部分，将时间从5n优化到n+4。在理想流水线的阶段，不需要考虑任何因指令形式导致的错误。所以单纯是增加了四个寄存器接口，使得五个阶段的数据能够对应执行的五条不同的指令而不是同一条指令。\n请为接口留下两个引脚位置，一个是清零，一个是暂停，前者用于后续的改进，后者用于Ecall指令和改进。除此之外，接口的传递原则是，后面的阶段需要使用到的信号和数据就传递，如果只在目前的阶段使用，就不传递。\n关于写操作的问题，存储的写回就不必赘述，因为必做的只有sw指令，写存储信号触发的时候不用像WB阶段进行复杂的数据筛选，直接采用ALU的结果即可，且访存指令之前不存在数据依赖，所以不存在冒险问题。\n而寄存器写回比较复杂，因为涉及到对寄存器组异步写，这会导致对于同一个数据访问的竞争，虽然ID/EX接口能够锁住WB阶段传回的值，但在EX和MEM阶段对应的寄存器写操作和ID阶段的同一个寄存器的读操作显然是冲突的，在尚未写回的时候尝试读很明显是错误的，这是理想流水线的第一个问题。\n第二个问题是分支预测，分支指令的跳转值需要在EX阶段执行（当然也可以在ID阶段添加额外的内容来计算，不过这也是一种改进流水线，不是理想流水线），所以无法直接得出下一条指令从哪里开始。当得到应该跳转的地址时，此时ID段应该就是这个地址，但是由于之前并不能判断是否跳转，只是默认+4，故ID段执行错误，导致分支冒险。\n气泡流水线 对于上述提到的两个问题，气泡流水线的改进非常简单粗暴，那就是插入空指令（气泡）。\n",
+  "wordCount" : "1726",
+  "inLanguage": "zh-cn",
+  "image":"https://zundadd.github.io/HasekawaMikan.github.io/cover006.jpg","datePublished": "2025-08-31T00:00:00Z",
+  "dateModified": "2025-08-31T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hasekawa Mikan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "长谷川蜜柑之窝",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zundadd.github.io/HasekawaMikan.github.io/" accesskey="h" title="长谷川蜜柑之窝 (Alt + H)">长谷川蜜柑之窝</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zundadd.github.io/HasekawaMikan.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/">文章列表</a></div>
+    <h1 class="post-title entry-hint-parent">
+      HUST硬件综合训练
+    </h1>
+    <div class="post-meta"><span title='2025-08-31 00:00:00 +0000 UTC'>August 31, 2025</span>&nbsp;·&nbsp;Hasekawa Mikan
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://zundadd.github.io/HasekawaMikan.github.io/cover006.jpg" alt="">
+        
+</figure>
+  <div class="post-content"><h1 id="任务概览">任务概览<a hidden class="anchor" aria-hidden="true" href="#任务概览">#</a></h1>
+<p>简单来说，就是先构建一个单周期RISC-V CPU，然后基于此加入中断和流水线功能，最终将二者合并在一起，所以作为根基的单周期CPU的设计一定要恰当，不然之后改进的时候就会很麻烦。每个人都有自己的四条专属的指令，建议在设计单周期CPU时就做完，以免之后每一个任务都额外去补充实现。</p>
+<img src="./01.png" style="zoom:50%;" />
+<p>以上是实现流程，红色为必做，蓝色为选作，完成图中所有内容后，理论上能拿到实践部分的满分。</p>
+<h2 id="单周期risc-v">单周期RISC-V<a hidden class="anchor" aria-hidden="true" href="#单周期risc-v">#</a></h2>
+<p>先说流程，首先是填表（表的生成那一页的红色字体是自带的，不是错的），然后构建两个子模块，接着就是IR解析，控制信号设置，PC计算，写回数据判断，ECALL处理和周期计数。</p>
+<p>再说注意事项：</p>
+<ol>
+<li>每一条指令都是有写操作的，会对CPU状态产生影响，控制信号的作用主要是控制写操作。而读操作不会影响CPU状态，为了保证单周期需要同时进行所有可能的读操作，并根据控制信号将选出要写入的数据。因此，只要写信号设置正确，任何冗余的操作和读信号都可以放心大胆的写上去。</li>
+<li>先整体再具体，先实现根据指令的类型使用Splitter提取出对应的字段比如说rd，imm12等，再按照该类型的通用执行流程设计数据流向。实现完整体之后，再考虑带有非共性的指令的实现，比如说sw，jw。中断相关的指令可以先不具体实现，但一定要先预留信号引脚位。</li>
+<li>最上边自带的显示的数据一定要有效，否则不能通过头歌平台的测试，在提交之前最好把用于测评的代码先加载到指令存储器中。</li>
+<li>halt是ecall使用的暂停标志，Go是在halt状态下解除暂停的标志，针对ecall指令单独设置多个MUX是必要的。</li>
+<li>跳转指令（BNE，JAL等）的立即数是符号扩展左移1位而不是+4相当的2位，这一点比较特殊。</li>
+</ol>
+<h2 id="理想流水线">理想流水线<a hidden class="anchor" aria-hidden="true" href="#理想流水线">#</a></h2>
+<p>非常无聊的任务，但是是后面的流水线的基石，也需要花比较长的时间去制作四个接口。</p>
+<p>五个阶段需要执行的任务分别是：</p>
+<ul>
+<li>IF：按照规则找出目标PC值，并从指令存储器中取出对应的指令</li>
+<li>ID：根据IR生成所有的控制信号和立即数，访问寄存器堆（包含写回，但是写回内容和信号由WB阶段传递回）</li>
+<li>EX：根据传入的R1和R2或立即数值调用ALU进行计算，以及其他各种计算工作比如跳转语句的PC计算，Ecall显示和暂停计算，跳转是否执行的计算，总之是各种计算中间数值的计算。</li>
+<li>MEM：根据计算的地址访问存储，是性能的瓶颈之处，基本上只有lw，sw这样的指令才会真正用上。</li>
+<li>WB：计算出要写回寄存器组的数据和是否写回的信号，相比MEM的写操作更为复杂，因为MEM阶段的写指令内容很简单。</li>
+</ul>
+<img src="./02.png" style="zoom:75%;" />
+<p>理想流水线的核心逻辑是，利用多个寄存器将指令的执行分为五个阶段，从而使得每个周期都能处同时处理不同的指令的一个部分，将时间从5n优化到n+4。在理想流水线的阶段，不需要考虑任何因指令形式导致的错误。所以单纯是增加了四个寄存器接口，使得五个阶段的数据能够对应执行的五条不同的指令而不是同一条指令。</p>
+<p>请为接口留下两个引脚位置，一个是清零，一个是暂停，前者用于后续的改进，后者用于Ecall指令和改进。除此之外，接口的传递原则是，后面的阶段需要使用到的信号和数据就传递，如果只在目前的阶段使用，就不传递。</p>
+<p>关于写操作的问题，存储的写回就不必赘述，因为必做的只有sw指令，写存储信号触发的时候不用像WB阶段进行复杂的数据筛选，直接采用ALU的结果即可，且访存指令之前不存在数据依赖，所以不存在冒险问题。</p>
+<p>而寄存器写回比较复杂，因为涉及到对寄存器组异步写，这会导致对于同一个数据访问的竞争，虽然ID/EX接口能够锁住WB阶段传回的值，但在EX和MEM阶段对应的寄存器写操作和ID阶段的同一个寄存器的读操作显然是冲突的，在尚未写回的时候尝试读很明显是错误的，这是理想流水线的第一个问题。</p>
+<p>第二个问题是分支预测，分支指令的跳转值需要在EX阶段执行（当然也可以在ID阶段添加额外的内容来计算，不过这也是一种改进流水线，不是理想流水线），所以无法直接得出下一条指令从哪里开始。当得到应该跳转的地址时，此时ID段应该就是这个地址，但是由于之前并不能判断是否跳转，只是默认+4，故ID段执行错误，导致分支冒险。</p>
+<h2 id="气泡流水线">气泡流水线<a hidden class="anchor" aria-hidden="true" href="#气泡流水线">#</a></h2>
+<p>对于上述提到的两个问题，气泡流水线的改进非常简单粗暴，那就是插入空指令（气泡）。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/%E6%9D%82%E8%B0%88/">杂谈</a></li>
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/%E7%A1%AC%E4%BB%B6/">硬件</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/godot%E6%90%AC%E8%BF%90/godot-uitree/">
+    <span class="title"> »</span>
+    <br>
+    <span>Godot自定义菜单</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>Hasekawa Mikan</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
