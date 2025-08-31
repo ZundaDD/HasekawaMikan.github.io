@@ -14,12 +14,7 @@
       <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/colorterminal/</link>
       <pubDate>Wed, 06 Aug 2025 00:00:00 +0000</pubDate>
       <guid>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/colorterminal/</guid>
-      <description>&lt;h2 id=&#34;基本格式&#34;&gt;基本格式&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;\e[0m&lt;/code&gt;     清除当前所有应用样式
-&lt;code&gt;\e[1m&lt;/code&gt;     设置终端输出样式1
-&lt;code&gt;\e[1;2m&lt;/code&gt;   组合终端输出样式1和2&lt;/p&gt;
-&lt;h2 id=&#34;样式列表&#34;&gt;样式列表&lt;/h2&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/colorterminal/01.png&#34;&gt;&lt;/p&gt;</description>
+      <description>留档用</description>
     </item>
   </channel>
 </rss>
