@@ -224,13 +224,13 @@
 <p>在WPF中，比较常用的就是单例对象初始化和配置注入。</p>
 <p>单例对象初始化的作用是自动识别依赖关系按照顺序初始化指定的对象，比如将MainWindow注册。这样做的好处就是，当A对象的初始化需要B作参量的时候，如果AB配置在services中，会自动先初始化B，再初始化A。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">().</span><span class="n">ConfigureServices</span><span class="p">((</span><span class="n">hostContext</span><span class="p">,</span> <span class="n">services</span><span class="p">)</span> <span class="p">=&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    	<span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">MainWindow</span><span class="p">&gt;();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="n">Build</span><span class="p">();</span>
 </span></span></code></pre></div><p>配置注入是对应用的多个配置文件按照顺序加载并覆盖，最终得到一个IConfiguration对象供全局调用，包含所有的配置项，这个对象可以用于注册了服务的对象构造函数中。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">().</span><span class="n">ConfigureAppConfiguration</span><span class="p">((</span><span class="n">hostContext</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="p">=&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">config</span><span class="p">.</span><span class="n">SetBasePath</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">GetCurrentDirectory</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">.</span><span class="n">SetBasePath</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">GetCurrentDirectory</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">.</span><span class="n">AddJsonFile</span><span class="p">(</span><span class="s">&#34;appsettings.json&#34;</span><span class="p">,</span> <span class="n">optional</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="n">reloadOnChange</span><span class="p">:</span> <span class="kc">true</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="n">Build</span><span class="p">();</span>
 </span></span></code></pre></div><p>除此之外还有日志输出和后台托管服务，这些在简单的WPF项目中使用较少。</p>
