@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>WPF笔记 I | 长谷川蜜柑之窝</title>
+<meta name="keywords" content="C#, WPF">
+<meta name="description" content="WPF快速构建">
+<meta name="author" content="Hasekawa Mikan">
+<link rel="canonical" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note1/">
+<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note1/">
+  <meta property="og:site_name" content="长谷川蜜柑之窝">
+  <meta property="og:title" content="WPF笔记 I">
+  <meta property="og:description" content="WPF快速构建">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-09-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-09-15T00:00:00+00:00">
+    <meta property="article:tag" content="C#">
+    <meta property="article:tag" content="WPF">
+    <meta property="og:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover007.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover007.jpg">
+<meta name="twitter:title" content="WPF笔记 I">
+<meta name="twitter:description" content="WPF快速构建">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章列表",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "WPF笔记 I",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "WPF笔记 I",
+  "name": "WPF笔记 I",
+  "description": "WPF快速构建",
+  "keywords": [
+    "C#", "WPF"
+  ],
+  "articleBody": "WPF笔记 架构 创建好WPF项目之后，会发现自带了App.xaml，App.xaml.cs，MainWindow.xaml和MainWindow.xaml.cs四个文件。\nApp.xaml：定义了全局的资源样式，以供控件使用。 App.xaml.cs：是应用的核心，规定了应用是怎么启动的，以及程序全局的行为，默认情况下会生成一个MainWindow并显示。 MainWindow.xaml：主要窗口的样式，规定了窗口需要包含什么样的组件，以及组件的属性值是如何。 MainWindow.xaml.cs：窗口背后运作的逻辑，可控xaml文件绑定函数。 可以看到，WPF项目中分为两种文件，一种是xaml，一种是cs。\nxaml文件给出的是对象的字段或者属性的值如何，也就是有什么内容，理论上任何类型都可以用xaml文件来配置。\ncs文件给出的是怎么利用字段和属性去运行，也就是内容怎么“动”起来。\nMicrosoft.Extensions.Hosting Microsoft.Extensions.Hosting是一个用于辅助构建.NET应用的Nuget包，通过一套标准的流程来启动项目，提供管理。\n在WPF中，比较常用的就是单例对象初始化和配置注入。\n单例对象初始化的作用是自动识别依赖关系按照顺序初始化指定的对象，比如将MainWindow注册。这样做的好处就是，当A对象的初始化需要B作参量的时候，如果AB配置在services中，会自动先初始化B，再初始化A。\nHost.CreateDefaultBuilder().ConfigureServices((hostContext, services) =\u003e { services.AddSingleton\u003cMainWindow\u003e(); }).Build(); 配置注入是对应用的多个配置文件按照顺序加载并覆盖，最终得到一个IConfiguration对象供全局调用，包含所有的配置项，这个对象可以用于注册了服务的对象构造函数中。\nHost.CreateDefaultBuilder().ConfigureAppConfiguration((hostContext, config) =\u003e { config.SetBasePath(Directory.GetCurrentDirectory()); config.AddJsonFile(\"appsettings.json\", optional: false, reloadOnChange: true); }).Build(); 除此之外还有日志输出和后台托管服务，这些在简单的WPF项目中使用较少。\n引入控件库 使用Visual Studio和C#最好的地方就是Nuget管理器，通过Nuget可以下载到各种控件库来使得UI更加美观，库中的内容分为样式和控件两个部分。\n控件部分是包额外提供实现的控件，和内置的Button等实现不同，也需要命名空间来导入，这些在xaml文件的根标签下，以类似下面给出的代码来定义。在导入之后，就可以用正常使用这些控件。\nxmlns:hc=\"https://handyorg.github.io/handycontrol\" 样式部分是包提供的可复用的全局属性值设置。通过ResourceDictionary导入之后，可以覆盖默认的UI绘制方式，类似于CSS文件。默认的UI绘制也是使用xaml文件来定义的，通过导入样式并覆盖，相当于给控件的默认绘制方式进行了美化。\n",
+  "wordCount" : "1033",
+  "inLanguage": "zh-cn",
+  "image":"https://zundadd.github.io/HasekawaMikan.github.io/covers/cover007.jpg","datePublished": "2025-09-15T00:00:00Z",
+  "dateModified": "2025-09-15T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hasekawa Mikan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "长谷川蜜柑之窝",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zundadd.github.io/HasekawaMikan.github.io/" accesskey="h" title="长谷川蜜柑之窝 (Alt + H)">长谷川蜜柑之窝</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zundadd.github.io/HasekawaMikan.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/">文章列表</a></div>
+    <h1 class="post-title entry-hint-parent">
+      WPF笔记 I
+    </h1>
+    <div class="post-meta"><span title='2025-09-15 00:00:00 +0000 UTC'>September 15, 2025</span>&nbsp;·&nbsp;Hasekawa Mikan
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover007.jpg" alt="">
+        
+</figure>
+  <div class="post-content"><h1 id="wpf笔记">WPF笔记<a hidden class="anchor" aria-hidden="true" href="#wpf笔记">#</a></h1>
+<h2 id="架构">架构<a hidden class="anchor" aria-hidden="true" href="#架构">#</a></h2>
+<p>创建好WPF项目之后，会发现自带了App.xaml，App.xaml.cs，MainWindow.xaml和MainWindow.xaml.cs四个文件。</p>
+<ul>
+<li>App.xaml：定义了全局的资源样式，以供控件使用。</li>
+<li>App.xaml.cs：是应用的核心，规定了应用是怎么启动的，以及程序全局的行为，默认情况下会生成一个MainWindow并显示。</li>
+<li>MainWindow.xaml：主要窗口的样式，规定了窗口需要包含什么样的组件，以及组件的属性值是如何。</li>
+<li>MainWindow.xaml.cs：窗口背后运作的逻辑，可控xaml文件绑定函数。</li>
+</ul>
+<p>可以看到，WPF项目中分为两种文件，一种是xaml，一种是cs。</p>
+<p>xaml文件给出的是对象的字段或者属性的值如何，也就是有什么内容，理论上任何类型都可以用xaml文件来配置。</p>
+<p>cs文件给出的是怎么利用字段和属性去运行，也就是内容怎么“动”起来。</p>
+<h2 id="microsoftextensionshosting">Microsoft.Extensions.Hosting<a hidden class="anchor" aria-hidden="true" href="#microsoftextensionshosting">#</a></h2>
+<p>Microsoft.Extensions.Hosting是一个用于辅助构建.NET应用的Nuget包，通过一套标准的流程来启动项目，提供管理。</p>
+<p>在WPF中，比较常用的就是单例对象初始化和配置注入。</p>
+<p>单例对象初始化的作用是自动识别依赖关系按照顺序初始化指定的对象，比如将MainWindow注册。这样做的好处就是，当A对象的初始化需要B作参量的时候，如果AB配置在services中，会自动先初始化B，再初始化A。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">().</span><span class="n">ConfigureServices</span><span class="p">((</span><span class="n">hostContext</span><span class="p">,</span> <span class="n">services</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">MainWindow</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="n">Build</span><span class="p">();</span>
+</span></span></code></pre></div><p>配置注入是对应用的多个配置文件按照顺序加载并覆盖，最终得到一个IConfiguration对象供全局调用，包含所有的配置项，这个对象可以用于注册了服务的对象构造函数中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">Host</span><span class="p">.</span><span class="n">CreateDefaultBuilder</span><span class="p">().</span><span class="n">ConfigureAppConfiguration</span><span class="p">((</span><span class="n">hostContext</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">config</span><span class="p">.</span><span class="n">SetBasePath</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="n">GetCurrentDirectory</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">.</span><span class="n">AddJsonFile</span><span class="p">(</span><span class="s">&#34;appsettings.json&#34;</span><span class="p">,</span> <span class="n">optional</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="n">reloadOnChange</span><span class="p">:</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="n">Build</span><span class="p">();</span>
+</span></span></code></pre></div><p>除此之外还有日志输出和后台托管服务，这些在简单的WPF项目中使用较少。</p>
+<h2 id="引入控件库">引入控件库<a hidden class="anchor" aria-hidden="true" href="#引入控件库">#</a></h2>
+<p>使用Visual Studio和C#最好的地方就是Nuget管理器，通过Nuget可以下载到各种控件库来使得UI更加美观，库中的内容分为样式和控件两个部分。</p>
+<p>控件部分是包额外提供实现的控件，和内置的Button等实现不同，也需要命名空间来导入，这些在xaml文件的根标签下，以类似下面给出的代码来定义。在导入之后，就可以用正常使用这些控件。</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">xmlns:hc=&#34;https://handyorg.github.io/handycontrol&#34;
+</code></pre><p>样式部分是包提供的可复用的全局属性值设置。通过ResourceDictionary导入之后，可以覆盖默认的UI绘制方式，类似于CSS文件。默认的UI绘制也是使用xaml文件来定义的，通过导入样式并覆盖，相当于给控件的默认绘制方式进行了美化。</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;ResourceDictionary&gt;
+	&lt;ResourceDictionary.MergedDictionaries&gt;
+    	&lt;ResourceDictionary Source=&#34;pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml&#34;/&gt;
+    	&lt;ResourceDictionary Source=&#34;pack://application:,,,/HandyControl;component/Themes/Theme.xaml&#34;/&gt;
+	&lt;/ResourceDictionary.MergedDictionaries&gt;
+&lt;/ResourceDictionary&gt;
+</code></pre>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/c%23/">C#</a></li>
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/wpf/">WPF</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/">
+    <span class="title"> »</span>
+    <br>
+    <span>HUST硬件综合训练</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>Hasekawa Mikan</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
