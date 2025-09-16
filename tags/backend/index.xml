@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>C#搬运 on 长谷川蜜柑之窝</title>
-    <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/</link>
-    <description>Recent content in C#搬运 on 长谷川蜜柑之窝</description>
+    <title>Backend on 长谷川蜜柑之窝</title>
+    <link>https://zundadd.github.io/HasekawaMikan.github.io/tags/backend/</link>
+    <description>Recent content in Backend on 长谷川蜜柑之窝</description>
     <generator>Hugo -- 0.150.0</generator>
     <language>zh-cn</language>
     <copyright>Hasekawa Mikan</copyright>
     <lastBuildDate>Tue, 16 Sep 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/tags/backend/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ASP.NET后端笔记 I</title>
       <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/asp-net-backend-note1/</link>
       <pubDate>Tue, 16 Sep 2025 00:00:00 +0000</pubDate>
       <guid>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/asp-net-backend-note1/</guid>
       <description>C#后端方案</description>
-    </item>
-    <item>
-      <title>WPF笔记 I</title>
-      <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note1/</link>
-      <pubDate>Mon, 15 Sep 2025 00:00:00 +0000</pubDate>
-      <guid>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note1/</guid>
-      <description>WPF快速构建</description>
     </item>
   </channel>
 </rss>
