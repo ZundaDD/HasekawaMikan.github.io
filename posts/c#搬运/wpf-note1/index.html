@@ -103,8 +103,8 @@
   "keywords": [
     "C#", "WPF"
   ],
-  "articleBody": "WPF笔记 架构 创建好WPF项目之后，会发现自带了App.xaml，App.xaml.cs，MainWindow.xaml和MainWindow.xaml.cs四个文件。\nApp.xaml：定义了全局的资源样式，以供控件使用。 App.xaml.cs：是应用的核心，规定了应用是怎么启动的，以及程序全局的行为，默认情况下会生成一个MainWindow并显示。 MainWindow.xaml：主要窗口的样式，规定了窗口需要包含什么样的组件，以及组件的属性值是如何。 MainWindow.xaml.cs：窗口背后运作的逻辑，可控xaml文件绑定函数。 可以看到，WPF项目中分为两种文件，一种是xaml，一种是cs。\nxaml文件给出的是对象的字段或者属性的值如何，也就是有什么内容，理论上任何类型都可以用xaml文件来配置。\ncs文件给出的是怎么利用字段和属性去运行，也就是内容怎么“动”起来。\nMicrosoft.Extensions.Hosting Microsoft.Extensions.Hosting是一个用于辅助构建.NET应用的Nuget包，通过一套标准的流程来启动项目，提供管理。\n在WPF中，比较常用的就是单例对象初始化和配置注入。\n单例对象初始化的作用是自动识别依赖关系按照顺序初始化指定的对象，比如将MainWindow注册。这样做的好处就是，当A对象的初始化需要B作参量的时候，如果AB配置在services中，会自动先初始化B，再初始化A。\nHost.CreateDefaultBuilder().ConfigureServices((hostContext, services) =\u003e { services.AddSingleton\u003cMainWindow\u003e(); }).Build(); 配置注入是对应用的多个配置文件按照顺序加载并覆盖，最终得到一个IConfiguration对象供全局调用，包含所有的配置项，这个对象可以用于注册了服务的对象构造函数中。\nHost.CreateDefaultBuilder().ConfigureAppConfiguration((hostContext, config) =\u003e { config.SetBasePath(Directory.GetCurrentDirectory()); config.AddJsonFile(\"appsettings.json\", optional: false, reloadOnChange: true); }).Build(); 除此之外还有日志输出和后台托管服务，这些在简单的WPF项目中使用较少。\n引入控件库 使用Visual Studio和C#最好的地方就是Nuget管理器，通过Nuget可以下载到各种控件库来使得UI更加美观，库中的内容分为样式和控件两个部分。\n控件部分是包额外提供实现的控件，和内置的Button等实现不同，也需要命名空间来导入，这些在xaml文件的根标签下，以类似下面给出的代码来定义。在导入之后，就可以用正常使用这些控件。\nxmlns:hc=\"https://handyorg.github.io/handycontrol\" 样式部分是包提供的可复用的全局属性值设置。通过ResourceDictionary导入之后，可以覆盖默认的UI绘制方式，类似于CSS文件。默认的UI绘制也是使用xaml文件来定义的，通过导入样式并覆盖，相当于给控件的默认绘制方式进行了美化。\n",
-  "wordCount" : "1033",
+  "articleBody": "WPF笔记 架构 创建好WPF项目之后，会发现自带了App.xaml，App.xaml.cs，MainWindow.xaml和MainWindow.xaml.cs四个文件。\nApp.xaml：定义了全局的资源样式，以供控件使用。 App.xaml.cs：是应用的核心，规定了应用是怎么启动的，以及程序全局的行为，默认情况下会生成一个MainWindow并显示。 MainWindow.xaml：主要窗口的样式，规定了窗口需要包含什么样的组件，以及组件的属性值是如何。 MainWindow.xaml.cs：窗口背后运作的逻辑，可控xaml文件绑定函数。 可以看到，WPF项目中分为两种文件，一种是xaml，一种是cs。\nxaml文件给出的是对象的字段或者属性的值如何，也就是有什么内容，理论上任何类型都可以用xaml文件来配置。\ncs文件给出的是怎么利用字段和属性去运行，也就是内容怎么“动”起来。\nMicrosoft.Extensions.Hosting Microsoft.Extensions.Hosting是一个用于辅助构建.NET应用的Nuget包，通过一套标准的流程来启动项目，提供管理。\n在WPF中，比较常用的就是单例对象初始化和配置注入。\n单例对象初始化的作用是自动识别依赖关系按照顺序初始化指定的对象，比如将MainWindow注册。这样做的好处就是，当A对象的初始化需要B作参量的时候，如果AB配置在services中，会自动先初始化B，再初始化A。\nHost.CreateDefaultBuilder().ConfigureServices((hostContext, services) =\u003e { services.AddSingleton\u003cMainWindow\u003e(); }).Build(); 配置注入是对应用的多个配置文件按照顺序加载并覆盖，最终得到一个IConfiguration对象供全局调用，包含所有的配置项，这个对象可以用于注册了服务的对象构造函数中。\nHost.CreateDefaultBuilder().ConfigureAppConfiguration((hostContext, config) =\u003e { config.SetBasePath(Directory.GetCurrentDirectory()); config.AddJsonFile(\"appsettings.json\", optional: false, reloadOnChange: true); }).Build(); 除此之外还有日志输出和后台托管服务，这些在简单的WPF项目中使用较少。\n引入控件库 使用Visual Studio和C#最好的地方就是Nuget管理器，通过Nuget可以下载到各种控件库来使得UI更加美观，库中的内容分为样式和控件两个部分。\n控件部分是包额外提供实现的控件，和内置的Button等实现不同，也需要命名空间来导入，这些在xaml文件的根标签下，以类似下面给出的代码来定义。在导入之后，就可以用正常使用这些控件。\nxmlns:hc=\"https://handyorg.github.io/handycontrol\" 样式部分是包提供的可复用的全局属性值设置。通过ResourceDictionary导入之后，可以覆盖默认的UI绘制方式，类似于CSS文件。默认的UI绘制也是使用xaml文件来定义的，通过导入样式并覆盖，相当于给控件的默认绘制方式进行了美化。\nGrid Grid作为WPF最基础的组件，用于提供一个可以精细化布局的基础控件，为其他的组件提供一个可定制布局的容器。其中，最为重要的两个属性就是RowDefinition和ColumnDefinition，二者用于精确的控制组件的位置关系以及每一行每一列的长宽。例如：\n其中*表示占据剩余的位置，Auto则根据子组件的长宽来决定。而子组件想要放置在Grid当中，也需要定义属性Grid.Column和Grid.Row。\n扩展标记 扩展标记是xaml语言中用于实现复杂逻辑的属性值，通常以大括号{}的形式出现，表示该属性的值不是简单的字符串，而是需要通过复杂的逻辑来获取，常见的拓展标记有{Static Resource}和{Binding}。\n{StaticResource}表示静态地从资源资源中获取一个对象，比如说自定义的按钮图标，这样就不用在定义控件的时候给出绘制的长篇代码，并且也可以复用。\n{Binding}表示从数据上下文（也就是MainWindow的DataContext）中绑定一个公开的C#属性，偶尔也可能绑定别的UI的依赖项或者对象本身。绑定分为单向和双向，如果是单向的话，Binding后面指出的属性值（源属性）会反应到使用Binding的属性（目标属性）上，如果是双向的话，任意一方改变都会导致另一方改变。\n需要注意的是，如果想要支持绑定，一定要让DataContext对象实现INotifyPropertyChanged接口，这个接口要求支持绑定的属性在值变化时要发出通知，这样UI才知道值改变了。一个例子如下面代码所示：\npublic event PropertyChangedEventHandler? PropertyChanged; protected void OnPropertyChanged([CallerMemberName] string? propertyName = null) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); } public ObservableCollection\u003cSong\u003e SearchResults { get; } = new(); private string _errorText = string.Empty; public string ErrorText { get =\u003e _errorText; set { if (_errorText != value) { _errorText = value; OnPropertyChanged(); } } } 前面的部分是INotifyPropertyChanged接口的一个简单实现，使用OnPropertyChanged包裹方便调用。\nObservableCollection是默认实现通知的列表，所以可以直接绑定，而ErrorText属性需要手动在值变动的时候通知，也就是调用OnPropertyChanged函数或者以PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(\"ErrorText\"))的形式调用，后者明显麻烦很多且存在不一致的隐患。\n",
+  "wordCount" : "2012",
   "inLanguage": "zh-cn",
   "image":"https://zundadd.github.io/HasekawaMikan.github.io/covers/cover007.jpg","datePublished": "2025-09-15T00:00:00Z",
   "dateModified": "2025-09-15T00:00:00Z",
@@ -245,7 +245,43 @@
     	&lt;ResourceDictionary Source=&#34;pack://application:,,,/HandyControl;component/Themes/Theme.xaml&#34;/&gt;
 	&lt;/ResourceDictionary.MergedDictionaries&gt;
 &lt;/ResourceDictionary&gt;
-</code></pre>
+</code></pre><h2 id="grid">Grid<a hidden class="anchor" aria-hidden="true" href="#grid">#</a></h2>
+<p>Grid作为WPF最基础的组件，用于提供一个可以精细化布局的基础控件，为其他的组件提供一个可定制布局的容器。其中，最为重要的两个属性就是RowDefinition和ColumnDefinition，二者用于精确的控制组件的位置关系以及每一行每一列的长宽。例如：</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml"> &lt;Grid.ColumnDefinitions&gt;
+     &lt;ColumnDefinition Width=&#34;*&#34;/&gt;
+     &lt;ColumnDefinition Width=&#34;Auto&#34;/&gt;
+ &lt;/Grid.ColumnDefinitions&gt;
+</code></pre><p>其中*表示占据剩余的位置，Auto则根据子组件的长宽来决定。而子组件想要放置在Grid当中，也需要定义属性Grid.Column和Grid.Row。</p>
+<h2 id="扩展标记">扩展标记<a hidden class="anchor" aria-hidden="true" href="#扩展标记">#</a></h2>
+<p>扩展标记是xaml语言中用于实现复杂逻辑的属性值，通常以大括号{}的形式出现，表示该属性的值不是简单的字符串，而是需要通过复杂的逻辑来获取，常见的拓展标记有{Static Resource}和{Binding}。</p>
+<p>{StaticResource}表示静态地从资源资源中获取一个对象，比如说自定义的按钮图标，这样就不用在定义控件的时候给出绘制的长篇代码，并且也可以复用。</p>
+<p>{Binding}表示从数据上下文（也就是MainWindow的DataContext）中绑定一个公开的C#属性，偶尔也可能绑定别的UI的依赖项或者对象本身。绑定分为单向和双向，如果是单向的话，Binding后面指出的属性值（源属性）会反应到使用Binding的属性（目标属性）上，如果是双向的话，任意一方改变都会导致另一方改变。</p>
+<p>需要注意的是，如果想要支持绑定，一定要让DataContext对象实现INotifyPropertyChanged接口，这个接口要求支持绑定的属性在值变化时要发出通知，这样UI才知道值改变了。一个例子如下面代码所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">event</span> <span class="n">PropertyChangedEventHandler</span><span class="p">?</span> <span class="n">PropertyChanged</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">protected</span> <span class="k">void</span> <span class="n">OnPropertyChanged</span><span class="p">([</span><span class="n">CallerMemberName</span><span class="p">]</span> <span class="kt">string?</span> <span class="n">propertyName</span> <span class="p">=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PropertyChanged</span><span class="p">?.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">new</span> <span class="n">PropertyChangedEventArgs</span><span class="p">(</span><span class="n">propertyName</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ObservableCollection</span><span class="p">&lt;</span><span class="n">Song</span><span class="p">&gt;</span> <span class="n">SearchResults</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">string</span> <span class="n">_errorText</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">ErrorText</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">get</span> <span class="p">=&gt;</span> <span class="n">_errorText</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">set</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_errorText</span> <span class="p">!=</span> <span class="k">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_errorText</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">OnPropertyChanged</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>前面的部分是INotifyPropertyChanged接口的一个简单实现，使用OnPropertyChanged包裹方便调用。</p>
+<p>ObservableCollection是默认实现通知的列表，所以可以直接绑定，而ErrorText属性需要手动在值变动的时候通知，也就是调用OnPropertyChanged函数或者以<code>PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(&quot;ErrorText&quot;))</code>的形式调用，后者明显麻烦很多且存在不一致的隐患。</p>
+
 
   </div>
 
@@ -255,10 +291,10 @@
       <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/wpf/">WPF</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/asp-net-backend-note1/">
+  <a class="prev" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note2/">
     <span class="title">« </span>
     <br>
-    <span>ASP.NET后端笔记 I</span>
+    <span>WPF笔记 II</span>
   </a>
   <a class="next" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/%E6%9D%82%E8%B0%88/hardcoretrain/">
     <span class="title"> »</span>
