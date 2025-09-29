@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Docker on 长谷川蜜柑之窝</title>
+    <link>https://zundadd.github.io/HasekawaMikan.github.io/tags/docker/</link>
+    <description>Recent content in Docker on 长谷川蜜柑之窝</description>
+    <generator>Hugo -- 0.150.1</generator>
+    <language>zh-cn</language>
+    <copyright>Hasekawa Mikan</copyright>
+    <lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker使用及迁移</title>
+      <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/docker/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/docker/</guid>
+      <description>第一次使用Docker并在Ubuntu上部署</description>
+    </item>
+  </channel>
+</rss>

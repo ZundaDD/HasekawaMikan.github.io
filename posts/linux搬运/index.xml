@@ -4,11 +4,18 @@
     <title>Linux搬运 on 长谷川蜜柑之窝</title>
     <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/</link>
     <description>Recent content in Linux搬运 on 长谷川蜜柑之窝</description>
-    <generator>Hugo -- 0.150.0</generator>
+    <generator>Hugo -- 0.150.1</generator>
     <language>zh-cn</language>
     <copyright>Hasekawa Mikan</copyright>
-    <lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker使用及迁移</title>
+      <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/docker/</link>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/docker/</guid>
+      <description>第一次使用Docker并在Ubuntu上部署</description>
+    </item>
     <item>
       <title>数据库系统能力大赛总结文档</title>
       <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/rmdbdoc/</link>
