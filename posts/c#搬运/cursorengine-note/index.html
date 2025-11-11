@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>CursorEngine 笔记 | 长谷川蜜柑之窝</title>
-<meta name="keywords" content="C#, SQLite, WPF, ASP.NET">
+<meta name="keywords" content="C#, WPF, MVVM, ASP.NET">
 <meta name="description" content="CursorEngine 项目开发复盘">
 <meta name="author" content="Hasekawa Mikan">
 <link rel="canonical" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/">
-<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.8dda0d0ad03b69bba6f7abebdeeeef2f04a75926f6e436323c45997aad6a8d1c.css" integrity="sha256-jdoNCtA7abum96vr3u7vLwSnWSb25DYyPEWZeq1qjRw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.42abbdcc7fa70038d6762d85e090f39c676f1c92e36e10376d28620daf0b33e7.css" integrity="sha256-Qqu9zH&#43;nADjWdi2F4JDznGdvHJLjbhA3bShiDa8LM&#43;c=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-32x32.png">
@@ -65,8 +65,8 @@
     <meta property="article:published_time" content="2025-11-10T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-11-10T00:00:00+00:00">
     <meta property="article:tag" content="C#">
-    <meta property="article:tag" content="SQLite">
     <meta property="article:tag" content="WPF">
+    <meta property="article:tag" content="MVVM">
     <meta property="article:tag" content="ASP.NET">
     <meta property="og:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover008.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -103,7 +103,7 @@
   "name": "CursorEngine 笔记",
   "description": "CursorEngine 项目开发复盘",
   "keywords": [
-    "C#", "SQLite", "WPF", "ASP.NET"
+    "C#", "WPF", "MVVM", "ASP.NET"
   ],
   "articleBody": "CursorEngine 笔记 MVVM ToolKit 拓展 手动去实现MVVM十分复杂，需要写很多额外的属性和事件，而CommunityMVVM Toolkit利用源生成器可以简化对应的实现，通过属性来标记需要监控的属性和需要绑定的指令。若要使用Toolkit，目标类一定要设置为partial并继承ObservableObject。\n[ObervableProperty]用于为一个字段生成对应的属性，通过属性修改字段值是会通知变更事件的订阅者，这一属性可以广泛用于xaml文件中的{Binding}。\n[RelayCommand]用于生成一个通用的用于绑定Command字段的属性，可以通过构造函数中声明CanExecute = nameof(XXX)来控制Command的可执行与否。\n[NotifyCanExecuteChangedFor]用于为[RelayCommand]的CanExecute条件是否满足的变化提供通知，如果CanExecute指定的属性没有附加此Attribute，那么Command的能否执行只取决于属性的初始值，而不是实时值。\nWindows API 针对特定系统会有特定的底层函数调用，但是需要额外的导入工作，对于C#而言，需要[DllImport]属性来导入系统dll中的系统函数，例如：\n[DllImport(\"user32.dll\", CharSet = CharSet.Auto)] public static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type); 手动声明容易出错，微软为我们提供了一个方便的NuGet包：Microsoft.Windows.CsWin32\n导入后，会在项目根目录下面生成一个NativeMethod.txt，向其中输入需要调用的底层API，就会自动生成带DllImport的声明。在调用时，通过预先生成好的静态类PInvoke来调用声明的函数。\n如果使用CsWin32不能满足需求或者说使用时会出错，那么这个时候必须手动声明DllImport。\nDataContext DataContext是针对Control和Window而言的绑定上下文，可以通过xaml文件指定也可以通过代码指定，比如:\nvar renamePanel = _serviceProvider.GetRequiredService\u003cRenamePanel\u003e(); renamePanel.DataContext = renameViewModel; 同样，Control可以针对DataContext修改的事件进行反向回调注册，比如：\nthis.DataContextChanged += (s, e) =\u003e { if (e.NewValue is RenameViewModel vm) { vm.CloseAction = (result) =\u003e { try { this.DialogResult = result; } catch (InvalidOperationException) { this.Close(); } }; } }; 在数据绑定的时候，不一定非要从当前的DataContext中寻找，也可以顺着UI树向上寻找DataContext进行绑定，比如：\n上述绑定方式表示沿着UI树向上寻找第一个Window对象，从该对象的DataContext中绑定NavigateCommand这一指令。上述绑定方式常用于控制页面/主控件切换。\n如果绑定的Command是一个带参函数，可以将Control本身的DataContext作为参数输入，比如：\n上述绑定方式表示绑定了一个单参数的ViewCommand，通过CommandParameter设置将控件自身DataContext输入。\nWPF窗口和WPF控件 在WPF中，控件(Control)是组成UI界面的基本元素，而窗口(Window)是一类特殊的控件，默认创建的MainWindow就是应用开启时自动打开的Window。\n具体来说，窗口是顶级容器，用于容纳其他的Control，在Windows系统上窗口的反映就是任务栏应用图标上的标签页数量，创建多少个显示的窗口，就有多少个预览页。尽管窗口不能脱离操作系统存在，但是不代表窗口一定要和操作系统的样式完全一致。常见的Window样式设置比如：\n有的时候，单一MainWindow不能满足软件的需求，或者将所有功能继承在一个窗口内显得很臃肿，自然需要唤起子界面/同级页面来处理。比如：\nvar renamePanel = _serviceProvider.GetRequiredService\u003cRenamePanel\u003e(); renamePanel.Owner = Application.Current.MainWindow; var dialogResult = renamePanel.ShowDialog(); 这里的RenamePanel是通过DI注入的Transient服务，以上代码请求创建一个RenamePanel，并将其父窗口设置为目前的主窗口，然后将其作为Dialog显示。Dialog表示同步且阻塞的显示方式，返回一个bool?值表示操作结果，通常true表示操作完成，false表示操作放弃，null表示按下窗口的关闭按钮。\nMaterialDesign MaterialDesign是一个提供控件扩展和样式扩展的Nuget包，引入了Google Material Design 的设计原则。\n对于控件拓展，这里主要讲述Transition，用于控制多个子Control之间的切换动画。样例如下：\nSelectedIndex是Transitioner用于控制Context显示的变量，当其绑定值发生变化的时候，会自动地切换控件的Content。\nTransitioningContent就是类似于幻灯片存在的容器，在其中放置想要显示的内容，并指定OpeningEffect，就会在变化的时候采用动画而不是僵硬的阻塞加载-瞬间变化处理，增加了用户体验。\nTaskBarIcon 很多时候，我们希望应用不仅仅是以窗口的形式运行，还希望它能够挂载在后台，只有在需要更改配置的时候才唤起，这个时候就需要用到系统任务栏托管，通过导入H.NotifyIcon.Wpf Nuget包来使用。\n在MainWindow中声明如上的代码，可以为软件添加系统托管，其中标签定义了右键上下文菜单，然后通过如下的代码来额外添加窗口的生命周期控制，便可以像音乐软件那样挂载在后台运行而不显示窗口。\n//关闭窗口时到后台运行 protected override void OnClosing(CancelEventArgs e) { e.Cancel = true; Hide(); base.OnClosing(e); } //注销TaskBar public void OnApplicationExit() =\u003e Dispatcher.Invoke(() =\u003e TaskbarIcon.Dispose()); //显示窗口 [RelayCommand] public void ShowWindow() { var mainWindow = _serviceProvider.GetRequiredService\u003cMainWindow\u003e(); mainWindow.Show(); mainWindow.Activate(); } //真正的退出程序 [RelayCommand] public void ExitApplication() =\u003e Application.Current.Shutdown(); ",
   "wordCount" : "2304",
@@ -328,8 +328,8 @@ CommandParameter=&#34;{Binding}&#34;/&gt;
   <footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/c%23/">C#</a></li>
-      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/sqlite/">SQLite</a></li>
       <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/wpf/">WPF</a></li>
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/mvvm/">MVVM</a></li>
       <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/asp.net/">ASP.NET</a></li>
     </ul>
 <nav class="paginav">
