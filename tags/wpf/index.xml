@@ -7,8 +7,15 @@
     <generator>Hugo -- 0.152.2</generator>
     <language>zh-cn</language>
     <copyright>Hasekawa Mikan</copyright>
-    <lastBuildDate>Tue, 16 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Nov 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://zundadd.github.io/HasekawaMikan.github.io/tags/wpf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CursorEngine 笔记</title>
+      <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/</link>
+      <pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/</guid>
+      <description>CursorEngine 项目开发复盘</description>
+    </item>
     <item>
       <title>WPF笔记 II</title>
       <link>https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/wpf-note2/</link>

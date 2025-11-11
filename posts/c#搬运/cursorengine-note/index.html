@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CursorEngine 笔记 | 长谷川蜜柑之窝</title>
+<meta name="keywords" content="C#, SQLite, WPF, ASP.NET">
+<meta name="description" content="CursorEngine 项目开发复盘">
+<meta name="author" content="Hasekawa Mikan">
+<link rel="canonical" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/">
+<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.8dda0d0ad03b69bba6f7abebdeeeef2f04a75926f6e436323c45997aad6a8d1c.css" integrity="sha256-jdoNCtA7abum96vr3u7vLwSnWSb25DYyPEWZeq1qjRw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/">
+  <meta property="og:site_name" content="长谷川蜜柑之窝">
+  <meta property="og:title" content="CursorEngine 笔记">
+  <meta property="og:description" content="CursorEngine 项目开发复盘">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-10T00:00:00+00:00">
+    <meta property="article:tag" content="C#">
+    <meta property="article:tag" content="SQLite">
+    <meta property="article:tag" content="WPF">
+    <meta property="article:tag" content="ASP.NET">
+    <meta property="og:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover008.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover008.jpg">
+<meta name="twitter:title" content="CursorEngine 笔记">
+<meta name="twitter:description" content="CursorEngine 项目开发复盘">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章列表",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "CursorEngine 笔记",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CursorEngine 笔记",
+  "name": "CursorEngine 笔记",
+  "description": "CursorEngine 项目开发复盘",
+  "keywords": [
+    "C#", "SQLite", "WPF", "ASP.NET"
+  ],
+  "articleBody": "CursorEngine 笔记 MVVM ToolKit 拓展 手动去实现MVVM十分复杂，需要写很多额外的属性和事件，而CommunityMVVM Toolkit利用源生成器可以简化对应的实现，通过属性来标记需要监控的属性和需要绑定的指令。若要使用Toolkit，目标类一定要设置为partial并继承ObservableObject。\n[ObervableProperty]用于为一个字段生成对应的属性，通过属性修改字段值是会通知变更事件的订阅者，这一属性可以广泛用于xaml文件中的{Binding}。\n[RelayCommand]用于生成一个通用的用于绑定Command字段的属性，可以通过构造函数中声明CanExecute = nameof(XXX)来控制Command的可执行与否。\n[NotifyCanExecuteChangedFor]用于为[RelayCommand]的CanExecute条件是否满足的变化提供通知，如果CanExecute指定的属性没有附加此Attribute，那么Command的能否执行只取决于属性的初始值，而不是实时值。\nWindows API 针对特定系统会有特定的底层函数调用，但是需要额外的导入工作，对于C#而言，需要[DllImport]属性来导入系统dll中的系统函数，例如：\n[DllImport(\"user32.dll\", CharSet = CharSet.Auto)] public static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type); 手动声明容易出错，微软为我们提供了一个方便的NuGet包：Microsoft.Windows.CsWin32\n导入后，会在项目根目录下面生成一个NativeMethod.txt，向其中输入需要调用的底层API，就会自动生成带DllImport的声明。在调用时，通过预先生成好的静态类PInvoke来调用声明的函数。\n如果使用CsWin32不能满足需求或者说使用时会出错，那么这个时候必须手动声明DllImport。\nDataContext DataContext是针对Control和Window而言的绑定上下文，可以通过xaml文件指定也可以通过代码指定，比如:\nvar renamePanel = _serviceProvider.GetRequiredService\u003cRenamePanel\u003e(); renamePanel.DataContext = renameViewModel; 同样，Control可以针对DataContext修改的事件进行反向回调注册，比如：\nthis.DataContextChanged += (s, e) =\u003e { if (e.NewValue is RenameViewModel vm) { vm.CloseAction = (result) =\u003e { try { this.DialogResult = result; } catch (InvalidOperationException) { this.Close(); } }; } }; 在数据绑定的时候，不一定非要从当前的DataContext中寻找，也可以顺着UI树向上寻找DataContext进行绑定，比如：\n上述绑定方式表示沿着UI树向上寻找第一个Window对象，从该对象的DataContext中绑定NavigateCommand这一指令。上述绑定方式常用于控制页面/主控件切换。\n如果绑定的Command是一个带参函数，可以将Control本身的DataContext作为参数输入，比如：\n上述绑定方式表示绑定了一个单参数的ViewCommand，通过CommandParameter设置将控件自身DataContext输入。\nWPF窗口和WPF控件 在WPF中，控件(Control)是组成UI界面的基本元素，而窗口(Window)是一类特殊的控件，默认创建的MainWindow就是应用开启时自动打开的Window。\n具体来说，窗口是顶级容器，用于容纳其他的Control，在Windows系统上窗口的反映就是任务栏应用图标上的标签页数量，创建多少个显示的窗口，就有多少个预览页。尽管窗口不能脱离操作系统存在，但是不代表窗口一定要和操作系统的样式完全一致。常见的Window样式设置比如：\n有的时候，单一MainWindow不能满足软件的需求，或者将所有功能继承在一个窗口内显得很臃肿，自然需要唤起子界面/同级页面来处理。比如：\nvar renamePanel = _serviceProvider.GetRequiredService\u003cRenamePanel\u003e(); renamePanel.Owner = Application.Current.MainWindow; var dialogResult = renamePanel.ShowDialog(); 这里的RenamePanel是通过DI注入的Transient服务，以上代码请求创建一个RenamePanel，并将其父窗口设置为目前的主窗口，然后将其作为Dialog显示。Dialog表示同步且阻塞的显示方式，返回一个bool?值表示操作结果，通常true表示操作完成，false表示操作放弃，null表示按下窗口的关闭按钮。\nMaterialDesign MaterialDesign是一个提供控件扩展和样式扩展的Nuget包，引入了Google Material Design 的设计原则。\n对于控件拓展，这里主要讲述Transition，用于控制多个子Control之间的切换动画。样例如下：\nSelectedIndex是Transitioner用于控制Context显示的变量，当其绑定值发生变化的时候，会自动地切换控件的Content。\nTransitioningContent就是类似于幻灯片存在的容器，在其中放置想要显示的内容，并指定OpeningEffect，就会在变化的时候采用动画而不是僵硬的阻塞加载-瞬间变化处理，增加了用户体验。\nTaskBarIcon 很多时候，我们希望应用不仅仅是以窗口的形式运行，还希望它能够挂载在后台，只有在需要更改配置的时候才唤起，这个时候就需要用到系统任务栏托管，通过导入H.NotifyIcon.Wpf Nuget包来使用。\n在MainWindow中声明如上的代码，可以为软件添加系统托管，其中标签定义了右键上下文菜单，然后通过如下的代码来额外添加窗口的生命周期控制，便可以像音乐软件那样挂载在后台运行而不显示窗口。\n//关闭窗口时到后台运行 protected override void OnClosing(CancelEventArgs e) { e.Cancel = true; Hide(); base.OnClosing(e); } //注销TaskBar public void OnApplicationExit() =\u003e Dispatcher.Invoke(() =\u003e TaskbarIcon.Dispose()); //显示窗口 [RelayCommand] public void ShowWindow() { var mainWindow = _serviceProvider.GetRequiredService\u003cMainWindow\u003e(); mainWindow.Show(); mainWindow.Activate(); } //真正的退出程序 [RelayCommand] public void ExitApplication() =\u003e Application.Current.Shutdown(); ",
+  "wordCount" : "2304",
+  "inLanguage": "zh-cn",
+  "image":"https://zundadd.github.io/HasekawaMikan.github.io/covers/cover008.jpg","datePublished": "2025-11-10T00:00:00Z",
+  "dateModified": "2025-11-10T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hasekawa Mikan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/cursorengine-note/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "长谷川蜜柑之窝",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zundadd.github.io/HasekawaMikan.github.io/" accesskey="h" title="长谷川蜜柑之窝 (Alt + H)">长谷川蜜柑之窝</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zundadd.github.io/HasekawaMikan.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/">文章列表</a></div>
+    <h1 class="post-title entry-hint-parent">
+      CursorEngine 笔记
+    </h1>
+    <div class="post-meta"><span title='2025-11-10 00:00:00 +0000 UTC'>November 10, 2025</span>&nbsp;·&nbsp;Hasekawa Mikan
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover008.jpg" alt="">
+        
+</figure>
+  <div class="post-content"><h1 id="cursorengine-笔记">CursorEngine 笔记<a hidden class="anchor" aria-hidden="true" href="#cursorengine-笔记">#</a></h1>
+<h2 id="mvvm-toolkit-拓展">MVVM ToolKit 拓展<a hidden class="anchor" aria-hidden="true" href="#mvvm-toolkit-拓展">#</a></h2>
+<p>手动去实现MVVM十分复杂，需要写很多额外的属性和事件，而CommunityMVVM Toolkit利用源生成器可以简化对应的实现，通过属性来标记需要监控的属性和需要绑定的指令。若要使用Toolkit，目标类一定要设置为partial并继承ObservableObject。</p>
+<p><code>[ObervableProperty]</code>用于为一个字段生成对应的属性，通过属性修改字段值是会通知变更事件的订阅者，这一属性可以广泛用于xaml文件中的<code>{Binding}</code>。</p>
+<p><code>[RelayCommand]</code>用于生成一个通用的用于绑定Command字段的属性，可以通过构造函数中声明<code>CanExecute = nameof(XXX)</code>来控制Command的可执行与否。</p>
+<p><code>[NotifyCanExecuteChangedFor]</code>用于为<code>[RelayCommand]</code>的CanExecute条件是否满足的变化提供通知，如果CanExecute指定的属性没有附加此Attribute，那么Command的能否执行只取决于属性的初始值，而不是实时值。</p>
+<h2 id="windows-api">Windows API<a hidden class="anchor" aria-hidden="true" href="#windows-api">#</a></h2>
+<p>针对特定系统会有特定的底层函数调用，但是需要额外的导入工作，对于C#而言，需要<code>[DllImport]</code>属性来导入系统dll中的系统函数，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[DllImport(&#34;user32.dll&#34;, CharSet = CharSet.Auto)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kd">extern</span> <span class="kt">int</span> <span class="n">MessageBox</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">hWnd</span><span class="p">,</span> <span class="kt">string</span> <span class="n">text</span><span class="p">,</span> <span class="kt">string</span> <span class="n">caption</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">type</span><span class="p">);</span>
+</span></span></code></pre></div><p>手动声明容易出错，微软为我们提供了一个方便的NuGet包：<code>Microsoft.Windows.CsWin32</code></p>
+<p>导入后，会在项目根目录下面生成一个<code>NativeMethod.txt</code>，向其中输入需要调用的底层API，就会自动生成带<code>DllImport</code>的声明。在调用时，通过预先生成好的静态类PInvoke来调用声明的函数。</p>
+<p>如果使用CsWin32不能满足需求或者说使用时会出错，那么这个时候必须手动声明DllImport。</p>
+<h2 id="datacontext">DataContext<a hidden class="anchor" aria-hidden="true" href="#datacontext">#</a></h2>
+<p>DataContext是针对Control和Window而言的绑定上下文，可以通过xaml文件指定也可以通过代码指定，比如:</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;v:LocalSchemeControl DataContext=&#34;{Binding LocalSchemeVM}&#34;/&gt;
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">renamePanel</span> <span class="p">=</span> <span class="n">_serviceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">RenamePanel</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl"><span class="n">renamePanel</span><span class="p">.</span><span class="n">DataContext</span> <span class="p">=</span> <span class="n">renameViewModel</span><span class="p">;</span>
+</span></span></code></pre></div><p>同样，Control可以针对DataContext修改的事件进行反向回调注册，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="n">DataContextChanged</span> <span class="p">+=</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">NewValue</span> <span class="k">is</span> <span class="n">RenameViewModel</span> <span class="n">vm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">CloseAction</span> <span class="p">=</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">DialogResult</span> <span class="p">=</span> <span class="n">result</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">catch</span> <span class="p">(</span><span class="n">InvalidOperationException</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><hr>
+<p>在数据绑定的时候，不一定非要从当前的DataContext中寻找，也可以顺着UI树向上寻找DataContext进行绑定，比如：</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;Button Command=&#34;{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}&#34;/&gt;
+</code></pre><p>上述绑定方式表示沿着UI树向上寻找第一个Window对象，从该对象的DataContext中绑定NavigateCommand这一指令。上述绑定方式常用于控制页面/主控件切换。</p>
+<hr>
+<p>如果绑定的Command是一个带参函数，可以将Control本身的DataContext作为参数输入，比如：</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;Button Command=&#34;{Binding DataContext.ViewCommand, RelativeSource={RelativeSource AncestorType=ListBox}}&#34;
+CommandParameter=&#34;{Binding}&#34;/&gt;
+</code></pre><p>上述绑定方式表示绑定了一个单参数的ViewCommand，通过CommandParameter设置将控件自身DataContext输入。</p>
+<h2 id="wpf窗口和wpf控件">WPF窗口和WPF控件<a hidden class="anchor" aria-hidden="true" href="#wpf窗口和wpf控件">#</a></h2>
+<p>在WPF中，控件(Control)是组成UI界面的基本元素，而窗口(Window)是一类特殊的控件，默认创建的MainWindow就是应用开启时自动打开的Window。</p>
+<p>具体来说，窗口是顶级容器，用于容纳其他的Control，在Windows系统上窗口的反映就是任务栏应用图标上的标签页数量，创建多少个显示的窗口，就有多少个预览页。尽管窗口不能脱离操作系统存在，但是不代表窗口一定要和操作系统的样式完全一致。常见的Window样式设置比如：</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;Window Style=&#34;{StaticResource MaterialDesignWindow}&#34;
+        Background=&#34;{DynamicResource MaterialDesignPaper}&#34;
+        WindowStyle=&#34;SingleBorderWindow&#34;
+        ResizeMode=&#34;NoResize&#34;
+        WindowStartupLocation=&#34;CenterOwner&#34;&gt;
+</code></pre><hr>
+<p>有的时候，单一MainWindow不能满足软件的需求，或者将所有功能继承在一个窗口内显得很臃肿，自然需要唤起子界面/同级页面来处理。比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">renamePanel</span> <span class="p">=</span> <span class="n">_serviceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">RenamePanel</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl"><span class="n">renamePanel</span><span class="p">.</span><span class="n">Owner</span> <span class="p">=</span> <span class="n">Application</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">MainWindow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">dialogResult</span> <span class="p">=</span> <span class="n">renamePanel</span><span class="p">.</span><span class="n">ShowDialog</span><span class="p">();</span>
+</span></span></code></pre></div><p>这里的RenamePanel是通过DI注入的Transient服务，以上代码请求创建一个RenamePanel，并将其父窗口设置为目前的主窗口，然后将其作为Dialog显示。Dialog表示同步且阻塞的显示方式，返回一个bool?值表示操作结果，通常true表示操作完成，false表示操作放弃，null表示按下窗口的关闭按钮。</p>
+<h2 id="materialdesign">MaterialDesign<a hidden class="anchor" aria-hidden="true" href="#materialdesign">#</a></h2>
+<p>MaterialDesign是一个提供控件扩展和样式扩展的Nuget包，引入了Google Material Design 的设计原则。</p>
+<p>对于控件拓展，这里主要讲述Transition，用于控制多个子Control之间的切换动画。样例如下：</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;md:Transitioner  SelectedIndex=&#34;{Binding CurrentPageIndex}&#34;&gt;
+            
+    &lt;md:TransitioningContent&gt;
+        &lt;md:TransitioningContent.OpeningEffect&gt;
+            &lt;md:TransitionEffect Kind=&#34;SlideInFromLeft&#34; Duration=&#34;0:0:0.3&#34;/&gt;
+        &lt;/md:TransitioningContent.OpeningEffect&gt;
+    &lt;/md:TransitioningContent&gt;
+
+    &lt;md:TransitioningContent&gt;
+        &lt;md:TransitioningContent.OpeningEffect&gt;
+            &lt;md:TransitionEffect Kind=&#34;SlideInFromLeft&#34; Duration=&#34;0:0:0.3&#34;/&gt;
+        &lt;/md:TransitioningContent.OpeningEffect&gt;
+    &lt;/md:TransitioningContent&gt;
+
+&lt;/md:Transitioner&gt;
+</code></pre><p>SelectedIndex是Transitioner用于控制Context显示的变量，当其绑定值发生变化的时候，会自动地切换控件的Content。</p>
+<p>TransitioningContent就是类似于幻灯片存在的容器，在其中放置想要显示的内容，并指定OpeningEffect，就会在变化的时候采用动画而不是僵硬的阻塞加载-瞬间变化处理，增加了用户体验。</p>
+<h2 id="taskbaricon">TaskBarIcon<a hidden class="anchor" aria-hidden="true" href="#taskbaricon">#</a></h2>
+<p>很多时候，我们希望应用不仅仅是以窗口的形式运行，还希望它能够挂载在后台，只有在需要更改配置的时候才唤起，这个时候就需要用到系统任务栏托管，通过导入H.NotifyIcon.Wpf Nuget包来使用。</p>
+<pre tabindex="0"><code class="language-xaml" data-lang="xaml">&lt;tb:TaskbarIcon x:Name=&#34;TaskbarIcon&#34;
+                IconSource=&#34;/cursor.ico&#34;
+                ToolTip=&#34;Cursor Engine&#34;
+                LeftClickCommand=&#34;{Binding ShowCommand}&#34; 
+                Grid.ColumnSpan=&#34;2&#34;&gt;
+    &lt;tb:TaskbarIcon.ContextMenu&gt;
+        &lt;ContextMenu&gt;
+            &lt;MenuItem Height=&#34;20&#34; Header=&#34;显示&#34; Command=&#34;{Binding ShowCommand}&#34;/&gt;
+            &lt;Separator/&gt;
+            &lt;MenuItem Height=&#34;20&#34; Header=&#34;退出&#34; Command=&#34;{Binding ExitCommand}&#34;/&gt;
+        &lt;/ContextMenu&gt;
+    &lt;/tb:TaskbarIcon.ContextMenu&gt;
+&lt;/tb:TaskbarIcon&gt;
+</code></pre><p>在MainWindow中声明如上的代码，可以为软件添加系统托管，其中<code>&lt;ContextMenu&gt;</code>标签定义了右键上下文菜单，然后通过如下的代码来额外添加窗口的生命周期控制，便可以像音乐软件那样挂载在后台运行而不显示窗口。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//关闭窗口时到后台运行</span>
+</span></span><span class="line"><span class="cl"><span class="kd">protected</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">OnClosing</span><span class="p">(</span><span class="n">CancelEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">e</span><span class="p">.</span><span class="n">Cancel</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Hide</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">base</span><span class="p">.</span><span class="n">OnClosing</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//注销TaskBar</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">OnApplicationExit</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">Dispatcher</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">TaskbarIcon</span><span class="p">.</span><span class="n">Dispose</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//显示窗口</span>
+</span></span><span class="line"><span class="cl"><span class="na">[RelayCommand]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">ShowWindow</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">mainWindow</span> <span class="p">=</span> <span class="n">_serviceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">MainWindow</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mainWindow</span><span class="p">.</span><span class="n">Show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mainWindow</span><span class="p">.</span><span class="n">Activate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//真正的退出程序</span>
+</span></span><span class="line"><span class="cl"><span class="na">[RelayCommand]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">ExitApplication</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">Application</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">Shutdown</span><span class="p">();</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/c%23/">C#</a></li>
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/sqlite/">SQLite</a></li>
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/wpf/">WPF</a></li>
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/asp.net/">ASP.NET</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/asp-net-backend-note1/">
+    <span class="title">« </span>
+    <br>
+    <span>ASP.NET后端笔记 I</span>
+  </a>
+  <a class="next" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/linux%E6%90%AC%E8%BF%90/docker/">
+    <span class="title"> »</span>
+    <br>
+    <span>Docker使用及迁移</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>Hasekawa Mikan</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
