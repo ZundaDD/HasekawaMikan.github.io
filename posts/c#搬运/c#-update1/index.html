@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C# 更新记录 I | 长谷川蜜柑之窝</title>
+<meta name="keywords" content="C#">
+<meta name="description" content="C#5.0 - C#7.3 特性/语法糖搬运">
+<meta name="author" content="Hasekawa Mikan">
+<link rel="canonical" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update1/">
+<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.42abbdcc7fa70038d6762d85e090f39c676f1c92e36e10376d28620daf0b33e7.css" integrity="sha256-Qqu9zH&#43;nADjWdi2F4JDznGdvHJLjbhA3bShiDa8LM&#43;c=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update1/">
+  <meta property="og:site_name" content="长谷川蜜柑之窝">
+  <meta property="og:title" content="C# 更新记录 I">
+  <meta property="og:description" content="C#5.0 - C#7.3 特性/语法糖搬运">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-12T00:00:00+00:00">
+    <meta property="article:tag" content="C#">
+    <meta property="og:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover011.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover011.jpg">
+<meta name="twitter:title" content="C# 更新记录 I">
+<meta name="twitter:description" content="C#5.0 - C#7.3 特性/语法糖搬运">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章列表",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "C# 更新记录 I",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C# 更新记录 I",
+  "name": "C# 更新记录 I",
+  "description": "C#5.0 - C#7.3 特性/语法糖搬运",
+  "keywords": [
+    "C#"
+  ],
+  "articleBody": "C# 更新记录 在此记录C#版本更新时带来的新特性，并给出C#版本和使用场景的对应关系。\n版本映射 C#版本 更新年份 .NET 框架 使用场景 4.0 2010 .NET Framework 4 《C#高级编程（第7版）》 5.0 2012 .NET Framework 4.5 6.0 2015 .NET Framework 4.6 7.0 2017 .NET Framework 4.6.2 7.1 2017 .NET Framework 4.7 7.2 2017 .NET Framework 4.7.1 7.3 2018 .NET Framework 4.7.2 8.0 2019 .NET Standard2.1 Unity 2023版本使用 9.0 2020 .NET 5 10.0 2021 .NET 6 11.0 2022 .NET 7 12.0 2023 .NET 8 Godot 4.4+版本使用/现长期支持版本 13.0 2024 .NET 9 C# 5.0 C#5.0引入了async/await语法糖，这一点已经被广泛使用，无需赘述。除此之外，加入了对调试很有帮助的调用方信息特性，也就是[CallerMemberNames]、[CallerLineNumber]、[CallerFilePath]和[CallerArgumentExpression]属性。\n通过向函数的参数中标记特性，可以自动获取对应的string，例如：\npublic void TraceMessage(string message, [CallerMemberName] string memberName = \"\", [CallerFilePath] string sourceFilePath = \"\", [CallerLineNumber] int sourceLineNumber = 0); 后面三个参数分别获取了调用成员的名称，调用文件的路径（编译时），调用文件的行号。\n而[CallerArgumentExpression]会将表达式转化为string并输出，例如：\npublic void Validate(bool condition, [CallerArgumentExpression(\"condition\")] string? message=null); Validate(nameof(func), func is not null); 此时message的值会自动设置为传入的表达式转化为string的值即\"func is not null\"。\nC# 6.0 C#6.0更新了很多更有效率的小功能，包括经常被使用的表达式体函数（就是=\u003e定义函数内容/返回值）、还有?.、?[]运算符等等，这些由于已经被经常使用而不再赘述。\n第一个介绍的特性是nameof表达式，可用于生成变量、类型或成员的名称作为字符串常量，在编译时求值。相比于硬编码，nameof表达式提供了类型安全检查，确保对象存在才能通过编译，并且能够被重构工具识别，无需手动修改。\n第二个介绍的特性是异常筛选，通过when关键字给出的表达式用于额外判断catch语句是否执行，可用于对异常处理的情况进行细分，特别是在网络传输中。例如：\ncatch (HttpRequestException e) when (e.Message.Contains(\"301\")) { } catch (HttpRequestException e) when (e.Message.Contains(\"404\")) { } C# 7.0 C#7.0更新了很多有用的新特性，下面将展开叙述。\n简单解释的特性有out参数和throw表达式，前者用于实现多值return，后者用于在条件运算符（? :）、null合并运算符（??）和=\u003e表达式中直接抛出异常。\n元组和析构 元组（System.ValueTuple）的行为和Python中很类似，可以原生进行打包和解包（析构），但是C#中的元组是静态类型，具有类型安全检查。\n元组可以显式给每个成员命名，使用字段名使用而不是索引访问，如果未指定，则默认按照Item1、Item2的顺序给出字段名。\n(double, int) t1 = (4.5, 3); Console.WriteLine($\"Tuple with elements {t1.Item1} and {t1.Item2}.\"); (double Sum, int Count) t2 = (4.5, 3); Console.WriteLine($\"Sum of {t2.Count} elements is {t2.Sum}.\"); ref变量 ref变量类似于C++中的指针和引用的结合体，但是提供了类型安全检查，且不具有指针所有的危险性，以及引用的不可变性。\n= ref是引用赋值运算符，用于更改引用引用的对象，ref readonly限制了不能使用普通的赋值运算符，但依旧可以使用赋值运算符。\nint variable = 0, anotherVarible = 1; ref int aliasOfvariable = ref variable; aliasOfvariable = ref anotherVarible; 同时，函数可以返回ref变量，根据接收者是不是ref变量决定使用引用赋值还是普通赋值，但是和C++一致的是，返回ref的源对象生命周期一定要超过函数内，同时每一处return语句都需要加上ref修饰。\npublic static ref int Find(int[,] matrix, Func\u003cint, bool\u003e predicate) { for (int i = 0; i \u003c matrix.GetLength(0); i++) for (int j = 0; j \u003c matrix.GetLength(1); j++) if (predicate(matrix[i, j])) return ref matrix[i, j]; throw new InvalidOperationException(\"Not found\"); } 模式匹配 模式匹配用于检测表达式是否具有某种特征，主要由is和switch表达式（由C#8.0添加）来判断，前者用于匹配单个模式，后者用于批量处理多种模式。在不同的模式之间，可以使用and、not、or来组合不同的模式。\n声明和类型模式匹配 用于检测是否与指定类型匹配（继承或实现），对于可空变量，is 匹配同时会先额外匹配is not null。可以在匹配之后声明变量，之后可以将新变量当声明类使用。\nsequence is IList\u003cT\u003e list sequence is not null 常量模式匹配 用于匹配和常量值相等的模式，例如：\ncommand is \"SystemTest\" var模式匹配 用于匹配任何表达式（包括 null），并将其结果分配给新的局部变量，例如：\nSimulateDataFetch(id) is var results 在is表达式中，var可以省略，但是在嵌套模式匹配中（列表、位置、属性）中，则不能省略某个子匹配的var。\n弃元模式匹配 用于匹配任何表达式（包括 null），并丢弃值，例如：\n// 该表达式会永远返回true a is _ 关系模式匹配 用于匹配满足大小关系的模式，例如：\ntempInFahrenheit is \u003c 32 列表模式匹配 用于根据列表内容来匹配模式，使用弃元_来匹配任何元素，使用切片模式..来匹配零个或任意个元素。该匹配等效于对列表中的每一个元素再做一次模式匹配，使用样例如下：\ntransaction is [_, \"WITHDRAWAL\", .., var amount] 弃元 弃元（_）是一种在应用程序代码中人为取消使用的占位符变量，用于忽略表达式的值。弃元不是变量，而是一种丢弃值的说明，除非上下文中已经定义了标识符为_的对象。\n第一种用途是元组的解包，对于不关注的值可以使用弃元来丢弃，例如：\n(_, _, area) = city.GetCityInformation(cityName); 第二种用途是switch匹配，在上一章中已经说明。\n第三种用途是给out变量使用，用于忽视输出，例如：\nDateTime.TryParse(dateString, out _) 最后一种是独立弃元来指示要忽略的任何变量，比如使用弃元来让无法单独存在的表达式变成语句而得以执行，比如??表达式，或者对于异步任务的执行表示不等待执行、不捕获异常也不关心返回值。例如：\n_ = arg ?? throw new ArgumentNullException(); _ = Task.Run(() =\u003e { ... }); C# 8.0 C# 8.0更新了很多的特性，这里仅介绍一部分特性，剩下的特性将在下一篇文章中介绍。\nreadonly readonly可以用于修饰struct，表示所有成员都是只读，不能在构造之后修改值，这里遵循的是最严格的值不变性。\nreadonly也可以用于struct或者class的某个成员，比如方法、属性get和字段。对于引用类型，加入readonly值之后只能保证引用的对象不会改变，但仍然可以修改对象包含的内容。\nusing声明 使用using语句可以保证只读变量被正确释放，在离开using语句块的时候，会自动释放获取的 IDisposable 实例。如果因为异常提前离开了语句块，也会依旧释放。using语句也可以不含代码块，将会在它的作用域末尾自动释放，比如函数结束。\n针对IAsyncDisposable，可以使用await using声明。使用样例如下：\nusing (StreamReader reader = File.OpenText(\"numbers.txt\")) { } await using (var resource = new AsyncDisposableExample()) { } using StreamReader reader = File.OpenText(filePath); 模式匹配 C#8.0中新增了switch表达式，该表达式会一次匹配多个模式，并针对每一个模式返回一个表达式值。\n除此之外，模式匹配部分还新增了两种模式：属性、位置。\n位置模式匹配 用于对一个元组进行模式匹配，如果一个对象实现了Deconstruct函数那么可以将该对象自动解包并以元组的形式进行模式匹配。元组模式匹配类似于列表模式匹配，依旧相当于对于每一个元素做模式匹配。使用样例如下：\npoint switch { (0, 0) =\u003e \"Origin\", (1, 0) =\u003e \"positive X basis end\", (0, 1) =\u003e \"positive Y basis end\", _ =\u003e \"Just a point\", }; 属性模式匹配 用于对一个对象是否具有指定字段/属性且满足子模式匹配进行模式匹配，需要指出字段/属性的名称，以及该字段/属性需要匹配的模式。本质类似于列表和位置模式匹配，都是进行嵌套的模式匹配。使用样例如下：\ninput switch { string { Length: \u003e= 5 } s =\u003e s.Substring(0, 5), string s =\u003e s, ICollection\u003cchar\u003e { Count: \u003e= 5 } symbols =\u003e ... ICollection\u003cchar\u003e symbols =\u003e new string(symbols.ToArray()), null =\u003e ..., _ =\u003e ..., }; 样例中的第一个模式匹配string类型，且此类型有一个字段/属性Length，满足\u003e=5这一模式匹配。\n",
+  "wordCount" : "2939",
+  "inLanguage": "zh-cn",
+  "image":"https://zundadd.github.io/HasekawaMikan.github.io/covers/cover011.jpg","datePublished": "2025-11-12T00:00:00Z",
+  "dateModified": "2025-11-12T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hasekawa Mikan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "长谷川蜜柑之窝",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zundadd.github.io/HasekawaMikan.github.io/" accesskey="h" title="长谷川蜜柑之窝 (Alt + H)">长谷川蜜柑之窝</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/archives/" title="时间轴">
+                    <span>时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/" title="分区">
+                    <span>分区</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zundadd.github.io/HasekawaMikan.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/">文章列表</a></div>
+    <h1 class="post-title entry-hint-parent">
+      C# 更新记录 I
+    </h1>
+    <div class="post-meta"><span title='2025-11-12 00:00:00 +0000 UTC'>November 12, 2025</span>&nbsp;·&nbsp;Hasekawa Mikan
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover011.jpg" alt="">
+        
+</figure>
+  <div class="post-content"><h1 id="c-更新记录">C# 更新记录<a hidden class="anchor" aria-hidden="true" href="#c-更新记录">#</a></h1>
+<p>在此记录C#版本更新时带来的新特性，并给出C#版本和使用场景的对应关系。</p>
+<h2 id="版本映射">版本映射<a hidden class="anchor" aria-hidden="true" href="#版本映射">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">C#版本</th>
+          <th style="text-align: center">更新年份</th>
+          <th style="text-align: center">.NET 框架</th>
+          <th style="text-align: center">使用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">4.0</td>
+          <td style="text-align: center">2010</td>
+          <td style="text-align: center">.NET Framework 4</td>
+          <td style="text-align: center">《C#高级编程（第7版）》</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">5.0</td>
+          <td style="text-align: center">2012</td>
+          <td style="text-align: center">.NET Framework 4.5</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">6.0</td>
+          <td style="text-align: center">2015</td>
+          <td style="text-align: center">.NET Framework 4.6</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">7.0</td>
+          <td style="text-align: center">2017</td>
+          <td style="text-align: center">.NET Framework 4.6.2</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">7.1</td>
+          <td style="text-align: center">2017</td>
+          <td style="text-align: center">.NET Framework 4.7</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">7.2</td>
+          <td style="text-align: center">2017</td>
+          <td style="text-align: center">.NET Framework 4.7.1</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">7.3</td>
+          <td style="text-align: center">2018</td>
+          <td style="text-align: center">.NET Framework 4.7.2</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">8.0</td>
+          <td style="text-align: center">2019</td>
+          <td style="text-align: center">.NET Standard2.1</td>
+          <td style="text-align: center">Unity 2023版本使用</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">9.0</td>
+          <td style="text-align: center">2020</td>
+          <td style="text-align: center">.NET 5</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">10.0</td>
+          <td style="text-align: center">2021</td>
+          <td style="text-align: center">.NET 6</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">11.0</td>
+          <td style="text-align: center">2022</td>
+          <td style="text-align: center">.NET 7</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">12.0</td>
+          <td style="text-align: center">2023</td>
+          <td style="text-align: center">.NET 8</td>
+          <td style="text-align: center">Godot 4.4+版本使用/现长期支持版本</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">13.0</td>
+          <td style="text-align: center">2024</td>
+          <td style="text-align: center">.NET 9</td>
+          <td style="text-align: center"></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="c-50">C# 5.0<a hidden class="anchor" aria-hidden="true" href="#c-50">#</a></h2>
+<p>C#5.0引入了<code>async/await</code>语法糖，这一点已经被广泛使用，无需赘述。除此之外，加入了对调试很有帮助的调用方信息特性，也就是<code>[CallerMemberNames]</code>、<code>[CallerLineNumber]</code>、<code>[CallerFilePath]</code>和<code>[CallerArgumentExpression]</code>属性。</p>
+<p>通过向函数的参数中标记特性，可以自动获取对应的string，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">TraceMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [CallerMemberName]</span> <span class="kt">string</span> <span class="n">memberName</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [CallerFilePath]</span> <span class="kt">string</span> <span class="n">sourceFilePath</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [CallerLineNumber]</span> <span class="kt">int</span> <span class="n">sourceLineNumber</span> <span class="p">=</span> <span class="m">0</span><span class="p">);</span>
+</span></span></code></pre></div><p>后面三个参数分别获取了调用成员的名称，调用文件的路径（编译时），调用文件的行号。</p>
+<p>而<code>[CallerArgumentExpression]</code>会将表达式转化为string并输出，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Validate</span><span class="p">(</span><span class="kt">bool</span> <span class="n">condition</span><span class="p">,</span> <span class="p">[</span><span class="n">CallerArgumentExpression</span><span class="p">(</span><span class="s">&#34;condition&#34;</span><span class="p">)]</span> <span class="kt">string?</span> <span class="n">message</span><span class="p">=</span><span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Validate</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">func</span><span class="p">),</span> <span class="n">func</span> <span class="k">is</span> <span class="n">not</span> <span class="kc">null</span><span class="p">);</span>
+</span></span></code></pre></div><p>此时message的值会自动设置为传入的表达式转化为string的值即&quot;func is not null&quot;。</p>
+<h2 id="c-60">C# 6.0<a hidden class="anchor" aria-hidden="true" href="#c-60">#</a></h2>
+<p>C#6.0更新了很多更有效率的小功能，包括经常被使用的表达式体函数（就是=&gt;定义函数内容/返回值）、还有?.、?[]运算符等等，这些由于已经被经常使用而不再赘述。</p>
+<p>第一个介绍的特性是<code>nameof</code>表达式，可用于生成变量、类型或成员的名称作为字符串常量，在编译时求值。相比于硬编码，<code>nameof</code>表达式提供了类型安全检查，确保对象存在才能通过编译，并且能够被重构工具识别，无需手动修改。</p>
+<p>第二个介绍的特性是异常筛选，通过<code>when</code>关键字给出的表达式用于额外判断<code>catch</code>语句是否执行，可用于对异常处理的情况进行细分，特别是在网络传输中。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">catch</span> <span class="p">(</span><span class="n">HttpRequestException</span> <span class="n">e</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&#34;301&#34;</span><span class="p">))</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">catch</span> <span class="p">(</span><span class="n">HttpRequestException</span> <span class="n">e</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&#34;404&#34;</span><span class="p">))</span> <span class="p">{</span> <span class="p">}</span>
+</span></span></code></pre></div><h2 id="c-70">C# 7.0<a hidden class="anchor" aria-hidden="true" href="#c-70">#</a></h2>
+<p>C#7.0更新了很多有用的新特性，下面将展开叙述。</p>
+<p>简单解释的特性有<code>out</code>参数和<code>throw</code>表达式，前者用于实现多值<code>return</code>，后者用于在条件运算符（<code>? :</code>）、null合并运算符（<code>??</code>）和<code>=&gt;</code>表达式中直接抛出异常。</p>
+<h3 id="元组和析构">元组和析构<a hidden class="anchor" aria-hidden="true" href="#元组和析构">#</a></h3>
+<p>元组（<code>System.ValueTuple</code>）的行为和Python中很类似，可以原生进行打包和解包（析构），但是C#中的元组是静态类型，具有类型安全检查。</p>
+<p>元组可以显式给每个成员命名，使用字段名使用而不是索引访问，如果未指定，则默认按照Item1、Item2的顺序给出字段名。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="p">(</span><span class="kt">double</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="n">t1</span> <span class="p">=</span> <span class="p">(</span><span class="m">4.5</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Tuple with elements {t1.Item1} and {t1.Item2}.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kt">double</span> <span class="n">Sum</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Count</span><span class="p">)</span> <span class="n">t2</span> <span class="p">=</span> <span class="p">(</span><span class="m">4.5</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Sum of {t2.Count} elements is {t2.Sum}.&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="ref变量">ref变量<a hidden class="anchor" aria-hidden="true" href="#ref变量">#</a></h3>
+<p><code>ref</code>变量类似于C++中的指针和引用的结合体，但是提供了类型安全检查，且不具有指针所有的危险性，以及引用的不可变性。</p>
+<p><code>= ref</code>是引用赋值运算符，用于更改引用引用的对象，<code>ref readonly</code>限制了不能使用普通的赋值运算符，但依旧可以使用赋值运算符。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">variable</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">anotherVarible</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">ref</span> <span class="kt">int</span> <span class="n">aliasOfvariable</span> <span class="p">=</span> <span class="k">ref</span> <span class="n">variable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">aliasOfvariable</span> <span class="p">=</span> <span class="k">ref</span> <span class="n">anotherVarible</span><span class="p">;</span>
+</span></span></code></pre></div><p>同时，函数可以返回ref变量，根据接收者是不是ref变量决定使用引用赋值还是普通赋值，但是和C++一致的是，返回ref的源对象生命周期一定要超过函数内，同时每一处<code>return</code>语句都需要加上ref修饰。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="k">ref</span> <span class="kt">int</span> <span class="n">Find</span><span class="p">(</span><span class="kt">int</span><span class="p">[,]</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">Func</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">predicate</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">matrix</span><span class="p">.</span><span class="n">GetLength</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&lt;</span> <span class="n">matrix</span><span class="p">.</span><span class="n">GetLength</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="n">j</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">predicate</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">ref</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidOperationException</span><span class="p">(</span><span class="s">&#34;Not found&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="模式匹配">模式匹配<a hidden class="anchor" aria-hidden="true" href="#模式匹配">#</a></h3>
+<p>模式匹配用于检测表达式是否具有某种特征，主要由<code>is</code>和<code>switch</code>表达式（由C#8.0添加）来判断，前者用于匹配单个模式，后者用于批量处理多种模式。在不同的模式之间，可以使用<code>and</code>、<code>not</code>、<code>or</code>来组合不同的模式。</p>
+<h4 id="声明和类型模式匹配">声明和类型模式匹配<a hidden class="anchor" aria-hidden="true" href="#声明和类型模式匹配">#</a></h4>
+<p>用于检测是否与指定类型匹配（继承或实现），对于可空变量，<code>is &lt;realType&gt;</code>匹配同时会先额外匹配<code>is not null</code>。可以在匹配之后声明变量，之后可以将新变量当声明类使用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">sequence</span> <span class="k">is</span> <span class="n">IList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">list</span>
+</span></span><span class="line"><span class="cl"><span class="n">sequence</span> <span class="k">is</span> <span class="n">not</span> <span class="kc">null</span>
+</span></span></code></pre></div><h4 id="常量模式匹配">常量模式匹配<a hidden class="anchor" aria-hidden="true" href="#常量模式匹配">#</a></h4>
+<p>用于匹配和常量值相等的模式，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">command</span> <span class="k">is</span> <span class="s">&#34;SystemTest&#34;</span>
+</span></span></code></pre></div><h4 id="var模式匹配">var模式匹配<a hidden class="anchor" aria-hidden="true" href="#var模式匹配">#</a></h4>
+<p>用于匹配任何表达式（包括 <code>null</code>），并将其结果分配给新的局部变量，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">SimulateDataFetch</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">is</span> <span class="kt">var</span> <span class="n">results</span> 
+</span></span></code></pre></div><p>在<code>is</code>表达式中，<code>var</code>可以省略，但是在嵌套模式匹配中（列表、位置、属性）中，则不能省略某个子匹配的<code>var</code>。</p>
+<h4 id="弃元模式匹配">弃元模式匹配<a hidden class="anchor" aria-hidden="true" href="#弃元模式匹配">#</a></h4>
+<p>用于匹配任何表达式（包括 <code>null</code>），并丢弃值，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">// 该表达式会永远返回true</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="k">is</span> <span class="n">_</span>
+</span></span></code></pre></div><h4 id="关系模式匹配">关系模式匹配<a hidden class="anchor" aria-hidden="true" href="#关系模式匹配">#</a></h4>
+<p>用于匹配满足大小关系的模式，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">tempInFahrenheit</span> <span class="k">is</span> <span class="p">&lt;</span> <span class="m">32</span>
+</span></span></code></pre></div><h4 id="列表模式匹配">列表模式匹配<a hidden class="anchor" aria-hidden="true" href="#列表模式匹配">#</a></h4>
+<p>用于根据列表内容来匹配模式，使用弃元<code>_</code>来匹配任何元素，使用切片模式<code>..</code>来匹配零个或任意个元素。该匹配等效于对列表中的每一个元素再做一次模式匹配，使用样例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">transaction</span> <span class="k">is</span> <span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="s">&#34;WITHDRAWAL&#34;</span><span class="p">,</span> <span class="p">..,</span> <span class="kt">var</span> <span class="n">amount</span><span class="p">]</span>
+</span></span></code></pre></div><h3 id="弃元">弃元<a hidden class="anchor" aria-hidden="true" href="#弃元">#</a></h3>
+<p>弃元（<code>_</code>）是一种在应用程序代码中人为取消使用的占位符变量，用于忽略表达式的值。弃元不是变量，而是一种丢弃值的说明，除非上下文中已经定义了标识符为<code>_</code>的对象。</p>
+<p>第一种用途是元组的解包，对于不关注的值可以使用弃元来丢弃，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">area</span><span class="p">)</span> <span class="p">=</span> <span class="n">city</span><span class="p">.</span><span class="n">GetCityInformation</span><span class="p">(</span><span class="n">cityName</span><span class="p">);</span>
+</span></span></code></pre></div><p>第二种用途是<code>switch</code>匹配，在上一章中已经说明。</p>
+<p>第三种用途是给<code>out</code>变量使用，用于忽视输出，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">DateTime</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">dateString</span><span class="p">,</span> <span class="k">out</span> <span class="n">_</span><span class="p">)</span>
+</span></span></code></pre></div><p>最后一种是独立弃元来指示要忽略的任何变量，比如使用弃元来让无法单独存在的表达式变成语句而得以执行，比如<code>??</code>表达式，或者对于异步任务的执行表示不等待执行、不捕获异常也不关心返回值。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">_</span> <span class="p">=</span> <span class="n">arg</span> <span class="p">??</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentNullException</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">_</span> <span class="p">=</span> <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</span></span></code></pre></div><h2 id="c-80">C# 8.0<a hidden class="anchor" aria-hidden="true" href="#c-80">#</a></h2>
+<p>C# 8.0更新了很多的特性，这里仅介绍一部分特性，剩下的特性将在下一篇文章中介绍。</p>
+<h3 id="readonly">readonly<a hidden class="anchor" aria-hidden="true" href="#readonly">#</a></h3>
+<p><code>readonly</code>可以用于修饰<code>struct</code>，表示所有成员都是只读，不能在构造之后修改值，这里遵循的是最严格的值不变性。</p>
+<p><code>readonly</code>也可以用于<code>struct</code>或者<code>class</code>的某个成员，比如方法、属性get和字段。对于引用类型，加入<code>readonly</code>值之后只能保证引用的对象不会改变，但仍然可以修改对象包含的内容。</p>
+<h3 id="using声明">using声明<a hidden class="anchor" aria-hidden="true" href="#using声明">#</a></h3>
+<p>使用<code>using</code>语句可以保证<strong>只读</strong>变量被正确释放，在离开<code>using</code>语句块的时候，会自动释放获取的 <code>IDisposable</code> 实例。如果因为异常提前离开了语句块，也会依旧释放。using语句也可以不含代码块，将会在它的作用域末尾自动释放，比如函数结束。</p>
+<p>针对<code>IAsyncDisposable</code>，可以使用<code>await using</code>声明。使用样例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">using</span> <span class="p">(</span><span class="n">StreamReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">OpenText</span><span class="p">(</span><span class="s">&#34;numbers.txt&#34;</span><span class="p">))</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">await</span> <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">resource</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AsyncDisposableExample</span><span class="p">())</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">StreamReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">OpenText</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="模式匹配-1">模式匹配<a hidden class="anchor" aria-hidden="true" href="#模式匹配-1">#</a></h3>
+<p>C#8.0中新增了<code>switch</code>表达式，该表达式会一次匹配多个模式，并针对每一个模式返回一个表达式值。</p>
+<p>除此之外，模式匹配部分还新增了两种模式：属性、位置。</p>
+<h4 id="位置模式匹配">位置模式匹配<a hidden class="anchor" aria-hidden="true" href="#位置模式匹配">#</a></h4>
+<p>用于对一个元组进行模式匹配，如果一个对象实现了<code>Deconstruct</code>函数那么可以将该对象自动解包并以元组的形式进行模式匹配。元组模式匹配类似于列表模式匹配，依旧相当于对于每一个元素做模式匹配。使用样例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">point</span> <span class="k">switch</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="s">&#34;Origin&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="s">&#34;positive X basis end&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="s">&#34;positive Y basis end&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_</span> <span class="p">=&gt;</span> <span class="s">&#34;Just a point&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><h4 id="属性模式匹配">属性模式匹配<a hidden class="anchor" aria-hidden="true" href="#属性模式匹配">#</a></h4>
+<p>用于对一个对象是否具有指定字段/属性且满足子模式匹配进行模式匹配，需要指出字段/属性的名称，以及该字段/属性需要匹配的模式。本质类似于列表和位置模式匹配，都是进行嵌套的模式匹配。使用样例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">input</span> <span class="k">switch</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="p">{</span> <span class="n">Length</span><span class="p">:</span> <span class="p">&gt;=</span> <span class="m">5</span> <span class="p">}</span> <span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">5</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ICollection</span><span class="p">&lt;</span><span class="kt">char</span><span class="p">&gt;</span> <span class="p">{</span> <span class="n">Count</span><span class="p">:</span> <span class="p">&gt;=</span> <span class="m">5</span> <span class="p">}</span> <span class="n">symbols</span> <span class="p">=&gt;</span> <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ICollection</span><span class="p">&lt;</span><span class="kt">char</span><span class="p">&gt;</span> <span class="n">symbols</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="kt">string</span><span class="p">(</span><span class="n">symbols</span><span class="p">.</span><span class="n">ToArray</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kc">null</span> <span class="p">=&gt;</span> <span class="p">...,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_</span> <span class="p">=&gt;</span> <span class="p">...,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>样例中的第一个模式匹配<code>string</code>类型，且此类型有一个字段/属性<code>Length</code>，满足<code>&gt;=5</code>这一模式匹配。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/c%23/">C#</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/asp-net-backend-note1/">
+    <span class="title"> »</span>
+    <br>
+    <span>ASP.NET后端笔记 I</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>Hasekawa Mikan</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
