@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C# 更新记录 II | 长谷川蜜柑之窝</title>
+<meta name="keywords" content="C#">
+<meta name="description" content="C#8.0 - C#12.0 特性/语法糖搬运">
+<meta name="author" content="Hasekawa Mikan">
+<link rel="canonical" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update2/">
+<link crossorigin="anonymous" href="/HasekawaMikan.github.io/assets/css/stylesheet.42abbdcc7fa70038d6762d85e090f39c676f1c92e36e10376d28620daf0b33e7.css" integrity="sha256-Qqu9zH&#43;nADjWdi2F4JDznGdvHJLjbhA3bShiDa8LM&#43;c=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zundadd.github.io/HasekawaMikan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zundadd.github.io/HasekawaMikan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update2/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update2/">
+  <meta property="og:site_name" content="长谷川蜜柑之窝">
+  <meta property="og:title" content="C# 更新记录 II">
+  <meta property="og:description" content="C#8.0 - C#12.0 特性/语法糖搬运">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-17T00:00:00+00:00">
+    <meta property="article:tag" content="C#">
+    <meta property="og:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover012.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover012.jpg">
+<meta name="twitter:title" content="C# 更新记录 II">
+<meta name="twitter:description" content="C#8.0 - C#12.0 特性/语法糖搬运">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章列表",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "C# 更新记录 II",
+      "item": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C# 更新记录 II",
+  "name": "C# 更新记录 II",
+  "description": "C#8.0 - C#12.0 特性/语法糖搬运",
+  "keywords": [
+    "C#"
+  ],
+  "articleBody": "C# 更新记录 在此记录C#版本更新时带来的新特性，并给出C#版本和使用场景的对应关系。\nC# 8.0 可空引用类型 除了int?、float?这样的可空值类型，引入了string?这样的可空引用类型。但是由于引用变量本身就可以为null，因此可空引用类型并不是一个新的类型，只是用于辅助编译器检查潜在的null错误。\n不可为 null 的引用类型在取消引用时应该始终是安全的，因为它们的 null-state 是 not-null。 若强制执行该规则，如果不可为 null 的引用类型没有初始化（以任何形式）为非 null 值，编译器将发出警告。\n对比而言，可为null的引用类型必须在取消对变量的引用之前确定该变量的状态为 not-null（使用!= null或者is not null）。 如果可为 null 的引用的状态确定为 maybe-null，将其分配给不可为 Null 的引用变量会生成编译器警告。\n对于将非not-null状态的值赋值给not-null状态的引用变量时：\n如果要赋值为null，需要使用null!来向编译器强调。 如果要赋值为可为null的引用类型，需要在变量名后面加上!来强调。 同时需要自行维护因为暂时地违反规则而导致的空引用问题。\n成员访问 Null运算符?.和?[] 仅当操作数的计算结果为非 NULL 时，NULL 条件运算符才对其操作数应用成员访问 (?.) 或元素访问 (?[]) 操作；否则，它会返回 null。 换句话说：\n如果 a 的计算结果为 null，则 a?.x 或 a?[x] 的结果为 null。 如果 a 的计算结果为非 null，则 a?.x 或 a?[x] 的结果将分别与 a.x 或 a[x] 的结果相同。 ^和..选择符 ^和..选择符只能用于单维数组。\n^选择符指示序列末尾的元素位置，比如^1指向最后一个元素。\n..选择符指定索引范围的开始和结束作为其操作数， 左侧操作数是范围的包含性开头。 右侧操作数是范围的包含性末尾。通过省略 .. 运算符的任何操作数，可以获得一个开放区间：\na.. 与 a..^0 等效 ..b 与 0..b 等效 .. 与 0..^0 等效 C# 9.0 记录record record是引用修饰符，用于提供封装数据的内置功能。record class 语法等价于record，record struct 则用于定义一种具有类似功能的值类型。比如：\n// 位置参数语法形式 public record Person(string FirstName, string LastName); // 等价于 public record Person { public string FirstName { get; init; } public string LastName { get; init; } }; public record struct Point { public double X { get; init; } public double Y { get; init; } public double Z { get; init; } } 同时不强制属性为只读，任何不符合需求的自动生成样式都可以通过声明相同的字段、属性来更改，比如：\npublic record Person(string FirstName, string LastName, string Id) { internal string Id { get; init; } = Id; } record关键字主要提供了以下内容：\n值相等性比较，相比引用值比较，record默认使用值相等比较，同时额外比较类型，如果类型不相同就不等。\n内置的输出格式，将以 {xx : xx, xx : xx}的格式默认重载ToString函数\n非破坏性变化声明（with），例如：\npublic record Person(string FirstName, string LastName) { public string[] PhoneNumbers { get; init; } } Person person1 = new(\"Nancy\", \"Davolio\") { PhoneNumbers = new string[1] }; Console.WriteLine(person1); Person person2 = person1 with { FirstName = \"John\" }; 引用型的浅不可变性，即在多线程环境下不会发生值的改变，但是引用属性的指向可以发生改变。\nrecord class之间可以继承，比如：\npublic abstract record Person(string FirstName, string LastName); public record Teacher(string FirstName, string LastName, int Grade) : Person(FirstName, LastName); 但是在使用with表达式时，你只能编辑声明的变量的类型的字段，而不是with的对象的实际类型\ninit关键字 init 关键字在属性或索引器中定义访问器方法。 init-only 资源库仅在对象构造期间为属性或索引器元素赋值。 init 强制实施不可变性，因此，一旦初始化对象，将无法更改，必须通过调用构造函数来初始化。\ninit访问器不强制提供值，如果没有显示给出值，将初始化为该类型的默认值。与private set和readonly的区别是，init不要求一定在构造函数中，也可以使用对象初始值设定项（new () {xx = xx, xx = xx}）\nC# 11.0 原始字符串 原始字符串字面量以至少三个双引号 (\"\"\") 字符开头。 它以相同数量的双引号字符结尾，无需转义序列。 比如：\nstring longMessage = \"\"\" This is a long message. It has several lines. Some are indented more than others. Some should start at the first column. Some have \"quoted text\" in them. \"\"\"; var location = $$\"\"\" You are at {{{Longitude}}, {{Latitude}}} \"\"\"; 如果要使用内插，使用多少个$就需要多少个大括号{}表示内插。\n泛型Attirbute Attribute可以使用泛型定义，但是在使用的时候比如给出所有的类型参数，而不能使用另一个泛型参数，比如：\npublic class GenericAttribute\u003cT\u003e : Attribute { } public class GenericType\u003cT\u003e { [GenericAttribute()] // 不合法，T不是具体类型 public string Method() =\u003e default; } required修饰符 required修饰符强制字段或属性使用对象初始值设定项进行初始化，该字段的可见性应该至少与其包含类型一样可见，且不可被隐藏。对于record中，必须显示指定required属性/字段的定义，而不是使用位置参数声明。\nC# 12.0 主构造函数 在定义类的时候，可以直接给出一个构造函数的参数列表，这些参数可以当作局部变量用于整个类，比如：\npublic class Employee(int id, string name) { public int Id { get; } = id; public string Name { get; } = name; public void Display() { Console.WriteLine($\"Employee ID: {id}, Name: {name}\"); } } 集合表达式 集合表达式中的 分布元素，..e 添加该表达式中的所有元素。 参数必须是集合类型。比如：\nint[] row0 = [1, 2, 3]; int[] row1 = [4, 5, 6]; int[] row2 = [7, 8, 9]; int[] single = [.. row0, .. row1, .. row2]; ..元素计算枚举表达式的每个元素。 每个元素都包含在输出集合中。\n",
+  "wordCount" : "2003",
+  "inLanguage": "zh-cn",
+  "image":"https://zundadd.github.io/HasekawaMikan.github.io/covers/cover012.jpg","datePublished": "2025-11-17T00:00:00Z",
+  "dateModified": "2025-11-17T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hasekawa Mikan"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "长谷川蜜柑之窝",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zundadd.github.io/HasekawaMikan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zundadd.github.io/HasekawaMikan.github.io/" accesskey="h" title="长谷川蜜柑之窝 (Alt + H)">长谷川蜜柑之窝</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/archives/" title="时间轴">
+                    <span>时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/" title="分区">
+                    <span>分区</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zundadd.github.io/HasekawaMikan.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zundadd.github.io/HasekawaMikan.github.io/posts/">文章列表</a></div>
+    <h1 class="post-title entry-hint-parent">
+      C# 更新记录 II
+    </h1>
+    <div class="post-meta"><span title='2025-11-17 00:00:00 +0000 UTC'>November 17, 2025</span>&nbsp;·&nbsp;Hasekawa Mikan
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://zundadd.github.io/HasekawaMikan.github.io/covers/cover012.jpg" alt="">
+        
+</figure>
+  <div class="post-content"><h1 id="c-更新记录">C# 更新记录<a hidden class="anchor" aria-hidden="true" href="#c-更新记录">#</a></h1>
+<p>在此记录C#版本更新时带来的新特性，并给出C#版本和使用场景的对应关系。</p>
+<h2 id="c-80">C# 8.0<a hidden class="anchor" aria-hidden="true" href="#c-80">#</a></h2>
+<h3 id="可空引用类型">可空引用类型<a hidden class="anchor" aria-hidden="true" href="#可空引用类型">#</a></h3>
+<p>除了int?、float?这样的可空值类型，引入了string?这样的可空引用类型。但是由于引用变量本身就可以为<code>null</code>，因此可空引用类型并不是一个新的类型，只是用于辅助编译器检查潜在的null错误。</p>
+<p>不可为 null 的引用类型在取消引用时应该始终是安全的，因为它们的 null-state 是 <code>not-null</code>。 若强制执行该规则，如果不可为 null 的引用类型没有初始化（以任何形式）为非 null 值，编译器将发出警告。</p>
+<p>对比而言，可为null的引用类型必须在取消对变量的引用之前确定该变量的状态为 <code>not-null</code>（使用<code>!= null</code>或者<code>is not null</code>）。 如果可为 null 的引用的状态确定为 <code>maybe-null</code>，将其分配给不可为 Null 的引用变量会生成编译器警告。</p>
+<p>对于将非<code>not-null</code>状态的值赋值给<code>not-null</code>状态的引用变量时：</p>
+<ul>
+<li>如果要赋值为<code>null</code>，需要使用<code>null!</code>来向编译器强调。</li>
+<li>如果要赋值为可为null的引用类型，需要在变量名后面加上<code>!</code>来强调。</li>
+</ul>
+<p>同时需要自行维护因为暂时地违反规则而导致的空引用问题。</p>
+<h3 id="成员访问">成员访问<a hidden class="anchor" aria-hidden="true" href="#成员访问">#</a></h3>
+<h4 id="null运算符和">Null运算符<code>?.</code>和<code>?[]</code><a hidden class="anchor" aria-hidden="true" href="#null运算符和">#</a></h4>
+<p>仅当操作数的计算结果为非 NULL 时，NULL 条件运算符才对其操作数应用成员访问 (<code>?.</code>) 或元素访问 (<code>?[]</code>) 操作；否则，它会返回 <code>null</code>。 换句话说：</p>
+<ul>
+<li>如果 <code>a</code> 的计算结果为 <code>null</code>，则 <code>a?.x</code> 或 <code>a?[x]</code> 的结果为 <code>null</code>。</li>
+<li>如果 <code>a</code> 的计算结果为非 null，则 <code>a?.x</code> 或 <code>a?[x]</code> 的结果将分别与 <code>a.x</code> 或 <code>a[x]</code> 的结果相同。</li>
+</ul>
+<h4 id="和选择符"><code>^</code>和<code>..</code>选择符<a hidden class="anchor" aria-hidden="true" href="#和选择符">#</a></h4>
+<p><code>^</code>和<code>..</code>选择符只能用于单维数组。</p>
+<p><code>^</code>选择符指示序列末尾的元素位置，比如<code>^1</code>指向最后一个元素。</p>
+<p><code>..</code>选择符指定索引范围的开始和结束作为其操作数， 左侧操作数是范围的包含性开头。 右侧操作数是范围的包含性末尾。通过省略 <code>..</code> 运算符的任何操作数，可以获得一个开放区间：</p>
+<ul>
+<li><code>a..</code> 与 <code>a..^0</code> 等效</li>
+<li><code>..b</code> 与 <code>0..b</code> 等效</li>
+<li><code>..</code> 与 <code>0..^0</code> 等效</li>
+</ul>
+<h2 id="c-90">C# 9.0<a hidden class="anchor" aria-hidden="true" href="#c-90">#</a></h2>
+<h3 id="记录record">记录<code>record</code><a hidden class="anchor" aria-hidden="true" href="#记录record">#</a></h3>
+<p><code>record</code>是引用修饰符，用于提供封装数据的内置功能。<code>record class</code> 语法等价于<code>record</code>，<code>record struct</code> 则用于定义一种具有类似功能的值类型。比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">// 位置参数语法形式</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">record</span> <span class="nc">Person</span><span class="p">(</span><span class="kt">string</span> <span class="n">FirstName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">LastName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 等价于</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">record</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">FirstName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">init</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">LastName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">init</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">record</span> <span class="nc">struct</span> <span class="n">Point</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">double</span> <span class="n">X</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">init</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">double</span> <span class="n">Y</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">init</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">double</span> <span class="n">Z</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">init</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>同时不强制属性为只读，任何不符合需求的自动生成样式都可以通过声明相同的字段、属性来更改，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">record</span> <span class="nc">Person</span><span class="p">(</span><span class="kt">string</span> <span class="n">FirstName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">LastName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">Id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">internal</span> <span class="kt">string</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">init</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="n">Id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>record</code>关键字主要提供了以下内容：</p>
+<ul>
+<li>
+<p>值相等性比较，相比引用值比较，<code>record</code>默认使用值相等比较，同时额外比较类型，如果类型不相同就不等。</p>
+</li>
+<li>
+<p>内置的输出格式，将以<code>&lt;type&gt; {xx : xx, xx : xx}</code>的格式默认重载<code>ToString</code>函数</p>
+</li>
+<li>
+<p>非破坏性变化声明（<code>with</code>），例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">record</span> <span class="nc">Person</span><span class="p">(</span><span class="kt">string</span> <span class="n">FirstName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">LastName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span><span class="p">[]</span> <span class="n">PhoneNumbers</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">init</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">Person</span> <span class="n">person1</span> <span class="p">=</span> <span class="k">new</span><span class="p">(</span><span class="s">&#34;Nancy&#34;</span><span class="p">,</span> <span class="s">&#34;Davolio&#34;</span><span class="p">)</span> <span class="p">{</span> <span class="n">PhoneNumbers</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">string</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">person1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Person</span> <span class="n">person2</span> <span class="p">=</span> <span class="n">person1</span> <span class="n">with</span> <span class="p">{</span> <span class="n">FirstName</span> <span class="p">=</span> <span class="s">&#34;John&#34;</span> <span class="p">};</span>
+</span></span></code></pre></div></li>
+<li>
+<p>引用型的浅不可变性，即在多线程环境下不会发生值的改变，但是引用属性的指向可以发生改变。</p>
+</li>
+</ul>
+<p><code>record class</code>之间可以继承，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="k">record</span> <span class="nc">Person</span><span class="p">(</span><span class="kt">string</span> <span class="n">FirstName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">LastName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">record</span> <span class="nc">Teacher</span><span class="p">(</span><span class="kt">string</span> <span class="n">FirstName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">LastName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Grade</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">:</span> <span class="n">Person</span><span class="p">(</span><span class="n">FirstName</span><span class="p">,</span> <span class="n">LastName</span><span class="p">);</span>
+</span></span></code></pre></div><p>但是在使用<code>with</code>表达式时，你只能编辑声明的变量的类型的字段，而不是<code>with</code>的对象的实际类型</p>
+<h3 id="init关键字"><code>init</code>关键字<a hidden class="anchor" aria-hidden="true" href="#init关键字">#</a></h3>
+<p><code>init</code> 关键字在属性或索引器中定义访问器方法。 init-only 资源库仅在对象构造期间为属性或索引器元素赋值。 <code>init</code> 强制实施不可变性，因此，一旦初始化对象，将无法更改，必须通过调用构造函数来初始化。</p>
+<p><code>init</code>访问器不强制提供值，如果没有显示给出值，将初始化为该类型的默认值。与<code>private set</code>和<code>readonly</code>的区别是，<code>init</code>不要求一定在构造函数中，也可以使用对象初始值设定项（<code>new &lt;type&gt;() {xx = xx, xx = xx}</code>）</p>
+<h2 id="c-110">C# 11.0<a hidden class="anchor" aria-hidden="true" href="#c-110">#</a></h2>
+<h3 id="原始字符串">原始字符串<a hidden class="anchor" aria-hidden="true" href="#原始字符串">#</a></h3>
+<p>原始字符串字面量以至少三个双引号 (&quot;&quot;&quot;) 字符开头。 它以相同数量的双引号字符结尾，无需转义序列。 比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">string</span> <span class="n">longMessage</span> <span class="p">=</span> <span class="s">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s"></span>    <span class="n">This</span> <span class="k">is</span> <span class="n">a</span> <span class="kt">long</span> <span class="n">message</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">It</span> <span class="n">has</span> <span class="n">several</span> <span class="n">lines</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Some</span> <span class="n">are</span> <span class="n">indented</span>
+</span></span><span class="line"><span class="cl">                <span class="n">more</span> <span class="n">than</span> <span class="n">others</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Some</span> <span class="n">should</span> <span class="n">start</span> <span class="n">at</span> <span class="n">the</span> <span class="n">first</span> <span class="n">column</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Some</span> <span class="n">have</span> <span class="s">&#34;quoted text&#34;</span> <span class="k">in</span> <span class="n">them</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;&#34;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s"></span><span class="kt">var</span> <span class="n">location</span> <span class="p">=</span> <span class="err">$</span><span class="s">$&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    You are at {{{Longitude}}, {{Latitude}}}
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;&#34;&#34;</span><span class="p">;</span>
+</span></span></code></pre></div><p>如果要使用内插，使用多少个<code>$</code>就需要多少个大括号<code>{}</code>表示内插。</p>
+<h3 id="泛型attirbute">泛型<code>Attirbute</code><a hidden class="anchor" aria-hidden="true" href="#泛型attirbute">#</a></h3>
+<p><code>Attribute</code>可以使用泛型定义，但是在使用的时候比如给出所有的类型参数，而不能使用另一个泛型参数，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">GenericAttribute</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Attribute</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">GenericType</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="na">   [GenericAttribute&lt;T&gt;()]</span> <span class="c1">// 不合法，T不是具体类型</span>
+</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="kt">string</span> <span class="n">Method</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="required修饰符"><code>required</code>修饰符<a hidden class="anchor" aria-hidden="true" href="#required修饰符">#</a></h3>
+<p><code>required</code>修饰符强制字段或属性使用<strong>对象初始值设定项</strong>进行初始化，该字段的可见性应该至少与其包含类型一样可见，且不可被隐藏。对于<code>record</code>中，必须显示指定<code>required</code>属性/字段的定义，而不是使用位置参数声明。</p>
+<h2 id="c-120">C# 12.0<a hidden class="anchor" aria-hidden="true" href="#c-120">#</a></h2>
+<h3 id="主构造函数">主构造函数<a hidden class="anchor" aria-hidden="true" href="#主构造函数">#</a></h3>
+<p>在定义类的时候，可以直接给出一个构造函数的参数列表，这些参数可以当作局部变量用于整个类，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Employee</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">Display</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Employee ID: {id}, Name: {name}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="集合表达式">集合表达式<a hidden class="anchor" aria-hidden="true" href="#集合表达式">#</a></h3>
+<p>集合表达式中的 <em>分布元素</em>，<code>..e</code> 添加该表达式中的所有元素。 参数必须是集合类型。比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[]</span> <span class="n">row0</span> <span class="p">=</span> <span class="p">[</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[]</span> <span class="n">row1</span> <span class="p">=</span> <span class="p">[</span><span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">6</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[]</span> <span class="n">row2</span> <span class="p">=</span> <span class="p">[</span><span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[]</span> <span class="n">single</span> <span class="p">=</span> <span class="p">[..</span> <span class="n">row0</span><span class="p">,</span> <span class="p">..</span> <span class="n">row1</span><span class="p">,</span> <span class="p">..</span> <span class="n">row2</span><span class="p">];</span>
+</span></span></code></pre></div><p><code>..</code>元素计算枚举表达式的每个元素。 每个元素都包含在输出集合中。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zundadd.github.io/HasekawaMikan.github.io/tags/c%23/">C#</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://zundadd.github.io/HasekawaMikan.github.io/posts/c%23%E6%90%AC%E8%BF%90/c%23-update1/">
+    <span class="title"> »</span>
+    <br>
+    <span>C# 更新记录 I</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>Hasekawa Mikan</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
