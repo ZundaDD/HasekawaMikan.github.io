@@ -11,6 +11,8 @@
 011 C# Update1
 012 C# Update2
 013 OS
+014 Shell
+015 精品推歌
 032 杂谈
 056 Linux搬运
 135 C#搬运
